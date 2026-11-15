@@ -1,9 +1,8 @@
-// Add the public Payhip product URL for each story when checkout is ready.
 const productLinks = {
-  idli: '',
-  amma: '',
-  ajja: '',
-  park: ''
+  idli: 'https://payhip.com/b/aXgsm',
+  amma: 'https://payhip.com/b/bTf0x',
+  ajja: 'https://payhip.com/b/HI9zh',
+  park: 'https://payhip.com/b/MGgfX'
 };
 
 const dialog = document.querySelector('#story-dialog');
@@ -23,9 +22,6 @@ function payhipLink(product) {
   return '';
 }
 
-if (cards.some(card => payhipLink(card.dataset.product))) {
-  document.querySelector('#store-status').lastChild.textContent = ' Select a story to view availability';
-}
 
 if (typeof dialog.showModal === 'function') {
   for (const card of cards) {
