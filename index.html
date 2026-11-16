@@ -4,67 +4,167 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="referrer" content="no-referrer">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
-  <meta name="theme-color" content="#fff9ed">
-  <meta name="description" content="Cubbon Crayons makes Kannada–English printable stories with tracing activities for little readers.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta name="theme-color" content="#fbf8f0">
+  <meta name="description" content="Explore Cubbon Crayons’ Kannada–English storybooks and preview tracing activities for ages 2–3. A4 printables to read together at home.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Cubbon Crayons · Kannada–English storybooks">
+  <meta property="og:description" content="Read together, try a tracing activity, and talk about feelings. Explore four Kannada–English printable stories for ages 2–3.">
+  <meta property="og:url" content="https://cubboncrayons.github.io/">
+  <meta property="og:image" content="https://cubboncrayons.github.io/assets/reading-hero.webp">
+  <meta property="og:image:alt" content="Appi checks on Amma, an illustration from a Cubbon Crayons storybook.">
+  <link rel="canonical" href="https://cubboncrayons.github.io/">
   <title>Cubbon Crayons · Kannada–English storybooks</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='13' fill='%23f8ce62'/%3E%3Ctext x='20' y='29' text-anchor='middle' font-size='27' fill='%23372550' font-family='Georgia' font-weight='bold'%3Ec%3C/text%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='13' fill='%23f6cd7b'/%3E%3Ctext x='20' y='29' text-anchor='middle' font-size='28' fill='%23274a3b' font-family='Georgia' font-weight='bold'%3Ec%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="styles.css">
   <script src="store.js" defer></script>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header wrap">
-    <a class="brand" href="#top"><span class="mark" aria-hidden="true">c<span>.</span></span> Cubbon Crayons</a>
-    <nav aria-label="Main navigation"><a href="#stories">Stories</a></nav>
+    <a class="brand" href="./"><span class="mark" aria-hidden="true">c.</span> Cubbon Crayons</a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="#stories">Stories</a>
+      <a href="#read-together">Read together</a>
+      <a href="#questions">FAQs</a>
+    </nav>
   </header>
-  <main id="top" class="wrap">
-    <section class="hero" aria-labelledby="headline">
+
+  <main id="main">
+    <section class="hero wrap" aria-labelledby="headline">
       <div class="hero-copy">
-        <p class="eyebrow"><span lang="kn">ಕನ್ನಡ</span> + ENGLISH</p>
-        <h1 id="headline">Little stories.<br><em>Little acts of kindness.</em></h1>
-        <p class="intro">Read about idlis, auto rides and park swings. Then give little hands something from the story to trace.</p>
+        <p class="eyebrow"><span lang="kn">ಕನ್ನಡ</span> + English</p>
+        <h1 id="headline">Little stories<br>for <em>big feelings.</em></h1>
+        <p class="intro">An idli shared at lunch. An auto ride with Ajja. Familiar moments to read and talk about with your little one.</p>
         <a class="button" href="#stories">Explore the stories <span aria-hidden="true">↓</span></a>
-        <p class="format">Printable A4 PDFs <span aria-hidden="true">·</span> Ages 2–3 with a grown-up</p>
+        <p class="hero-format">Ages 2–3 with a grown-up <span aria-hidden="true">·</span> Printable A4 storybooks</p>
       </div>
-      <div class="book-stage" aria-hidden="true">
-        <span class="orbit"></span><span class="star star-one">✦</span><span class="star star-two">✦</span><span class="star star-three">✧</span>
-        <img class="hero-book hero-back" src="assets/ajja.webp" alt="" width="660" height="934">
-        <img class="hero-book hero-front" src="assets/idli.webp" alt="" width="780" height="1103" fetchpriority="high">
-      </div>
+      <figure class="hero-art">
+        <img src="assets/reading-hero.webp" width="866" height="570" alt="Appi rests his hand on Amma’s shoulder as she sits beside an open book." fetchpriority="high">
+        <figcaption><span>From the story</span> <a href="#amma">A Little Help from Appi <span aria-hidden="true">↗</span></a></figcaption>
+      </figure>
     </section>
+
     <section class="collection" id="stories" aria-labelledby="collection-title">
-      <div class="section-heading">
-        <div><p class="eyebrow">THE FIRST COLLECTION</p><h2 id="collection-title">Pick a story</h2></div>
-        <p id="store-status" class="status"><span></span> ₹49 each · Printable PDFs</p>
-      </div>
-      <div class="grid">
-        <article class="card" data-title="An Idli for Meera" data-product="idli">
-          <div class="cover cover-peach"><img src="assets/idli.webp" alt="An Idli for Meera cover" width="780" height="1103"></div>
-          <div class="card-body"><div class="tag">Sharing</div><h3>An Idli for Meera</h3><p class="kannada" lang="kn">ಮೀರಾಳಿಗೆ ಒಂದು ಇಡ್ಲಿ</p><p class="description">Meera’s tiffin is empty. Read how Appi offers her an idli, then trace one and draw a smile.</p><div class="card-bottom"><span>7 pages · A4 PDF</span><button class="detail" type="button" hidden>Story details <span aria-hidden="true">↗</span></button></div></div>
-        </article>
-        <article class="card" data-title="A Little Help from Appi" data-product="amma">
-          <div class="cover cover-yellow"><img src="assets/amma.webp" alt="A Little Help from Appi cover" width="660" height="934"></div>
-          <div class="card-body"><div class="tag">Helping at home</div><h3>A Little Help from Appi</h3><p class="kannada" lang="kn">ಅಪ್ಪಿಯ ಪುಟ್ಟ ಸಹಾಯ</p><p class="description">Appi notices Amma is tired. Read how he helps, then trace the glass and the toy basket.</p><div class="card-bottom"><span>10 pages · A4 PDF</span><button class="detail" type="button" hidden>Story details <span aria-hidden="true">↗</span></button></div></div>
-        </article>
-        <article class="card" data-title="An Auto Ride for Ajja" data-product="ajja">
-          <div class="cover cover-mint"><img src="assets/ajja.webp" alt="An Auto Ride for Ajja cover" width="660" height="934"></div>
-          <div class="card-body"><div class="tag">Caring for others</div><h3>An Auto Ride for Ajja</h3><p class="kannada" lang="kn">ಅಜ್ಜನಿಗಾಗಿ ಆಟೋ ಸವಾರಿ</p><p class="description">Ajja’s knee hurts. Ride along as Appi goes with him to the doctor, then trace the familiar auto.</p><div class="card-bottom"><span>6 pages · A4 PDF</span><button class="detail" type="button" hidden>Story details <span aria-hidden="true">↗</span></button></div></div>
-        </article>
-        <article class="card" data-title="Appi’s Day at the Park" data-product="park">
-          <div class="cover cover-lilac"><img src="assets/park.webp" alt="Appi’s Day at the Park cover" width="660" height="934"></div>
-          <div class="card-body"><div class="tag">Taking turns</div><h3>Appi’s Day at the Park</h3><p class="kannada" lang="kn">ಪಾರ್ಕಿನಲ್ಲಿ ಅಪ್ಪಿ</p><p class="description">Appi and Meera both want a turn on the swing. Read what happens and trace the swing and the cloth.</p><div class="card-bottom"><span>9 pages · A4 PDF</span><button class="detail" type="button" hidden>Story details <span aria-hidden="true">↗</span></button></div></div>
-        </article>
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <h2 id="collection-title">Find your next story</h2>
+            <p>Preview an activity from any book. Every story is in Kannada and English.</p>
+          </div>
+          <p class="collection-price">₹49 per story</p>
+        </div>
+        <div class="filters" id="story-filters" role="group" aria-label="Filter stories by theme" hidden>
+          <button type="button" data-filter="all" aria-pressed="true">All stories</button>
+          <button type="button" data-filter="care" aria-pressed="false">Kindness &amp; care</button>
+          <button type="button" data-filter="friends" aria-pressed="false">Sharing &amp; taking turns</button>
+        </div>
+        <p class="visually-hidden" id="filter-status" role="status"></p>
+        <div class="grid" id="story-list">
+          <article class="card" id="idli" data-theme="friends" aria-labelledby="idli-title">
+            <div class="cover cover-peach"><img src="assets/idli.webp" alt="" width="780" height="1103" loading="lazy"></div>
+            <div class="card-body">
+              <p class="tag">Sharing</p>
+              <h3 id="idli-title">An Idli for Meera</h3>
+              <p class="kannada" lang="kn">ಮೀರಾಳಿಗೆ ಒಂದು ಇಡ್ಲಿ</p>
+              <p class="description">Meera forgets her lunch. Appi offers her an idli. After reading, trace an idli and draw a smile.</p>
+              <p class="card-format">7 pages <span aria-hidden="true">·</span> A4 PDF</p>
+              <div class="card-actions">
+                <a class="button button-small" href="https://payhip.com/b/aXgsm" aria-label="Buy An Idli for Meera on Payhip for 49 rupees">Buy story <span aria-hidden="true">↗</span></a>
+                <a class="preview" href="assets/idli-sample.webp" aria-label="Preview the activity from An Idli for Meera" data-caption="Trace Appi’s idli">Preview activity</a>
+              </div>
+            </div>
+          </article>
+          <article class="card" id="amma" data-theme="care" aria-labelledby="amma-title">
+            <div class="cover cover-gold"><img src="assets/amma.webp" alt="" width="660" height="934" loading="lazy"></div>
+            <div class="card-body">
+              <p class="tag">Helping at home</p>
+              <h3 id="amma-title">A Little Help from Appi</h3>
+              <p class="kannada" lang="kn">ಅಪ್ಪಿಯ ಪುಟ್ಟ ಸಹಾಯ</p>
+              <p class="description">Appi notices Amma is tired and finds small ways to help. Trace the glass and the toy basket together.</p>
+              <p class="card-format">10 pages <span aria-hidden="true">·</span> A4 PDF</p>
+              <div class="card-actions">
+                <a class="button button-small" href="https://payhip.com/b/bTf0x" aria-label="Buy A Little Help from Appi on Payhip for 49 rupees">Buy story <span aria-hidden="true">↗</span></a>
+                <a class="preview" href="assets/amma-sample.webp" aria-label="Preview the activity from A Little Help from Appi" data-caption="Trace a glass of water">Preview activity</a>
+              </div>
+            </div>
+          </article>
+          <article class="card" id="ajja" data-theme="care" aria-labelledby="ajja-title">
+            <div class="cover cover-mint"><img src="assets/ajja.webp" alt="" width="660" height="934" loading="lazy"></div>
+            <div class="card-body">
+              <p class="tag">Caring for others</p>
+              <h3 id="ajja-title">An Auto Ride for Ajja</h3>
+              <p class="kannada" lang="kn">ಅಜ್ಜನಿಗಾಗಿ ಆಟೋ ಸವಾರಿ</p>
+              <p class="description">When Ajja’s knee hurts, Appi goes with him to the doctor. Follow the dots to trace their auto-rickshaw.</p>
+              <p class="card-format">6 pages <span aria-hidden="true">·</span> A4 PDF</p>
+              <div class="card-actions">
+                <a class="button button-small" href="https://payhip.com/b/HI9zh" aria-label="Buy An Auto Ride for Ajja on Payhip for 49 rupees">Buy story <span aria-hidden="true">↗</span></a>
+                <a class="preview" href="assets/ajja-sample.webp" aria-label="Preview the activity from An Auto Ride for Ajja" data-caption="Follow the dots around Ajja’s auto">Preview activity</a>
+              </div>
+            </div>
+          </article>
+          <article class="card" id="park" data-theme="friends" aria-labelledby="park-title">
+            <div class="cover cover-lilac"><img src="assets/park.webp" alt="" width="660" height="934" loading="lazy"></div>
+            <div class="card-body">
+              <p class="tag">Taking turns</p>
+              <h3 id="park-title">Appi’s Day at the Park</h3>
+              <p class="kannada" lang="kn">ಪಾರ್ಕಿನಲ್ಲಿ ಅಪ್ಪಿ</p>
+              <p class="description">Appi and Meera both want the swing. Read how Appi makes things right, then trace the swing and the cloth.</p>
+              <p class="card-format">9 pages <span aria-hidden="true">·</span> A4 PDF</p>
+              <div class="card-actions">
+                <a class="button button-small" href="https://payhip.com/b/MGgfX" aria-label="Buy Appi’s Day at the Park on Payhip for 49 rupees">Buy story <span aria-hidden="true">↗</span></a>
+                <a class="preview" href="assets/park-sample.webp" aria-label="Preview the activity from Appi’s Day at the Park" data-caption="Trace the blue swing">Preview activity</a>
+              </div>
+            </div>
+          </article>
+        </div>
+        <p class="checkout-note">Payment and PDF delivery are handled by Payhip.</p>
       </div>
     </section>
-    <section class="parent-note" aria-labelledby="parent-title">
-      <div><p class="eyebrow">TO TRY TOGETHER</p><h2 id="parent-title">From the page to real life</h2></div>
-      <p>Read in Kannada, English or both. Pause to trace an object from the story, then ask one small question. For Meera’s story, try <em>“Can we offer someone an idli today?”</em></p>
+
+    <section class="reading-guide wrap" id="read-together" aria-labelledby="reading-title">
+      <div>
+        <h2 id="reading-title">Make it a moment together</h2>
+        <p>One page is plenty when your child wants to stop and talk.</p>
+      </div>
+      <dl class="reading-steps">
+        <div><dt>Read</dt><dd>Pick Kannada, English, or both. Read slowly and make the story sounds together.</dd></div>
+        <div><dt>Trace</dt><dd>Follow the dots with a finger or crayon. Take turns if your child wants to.</dd></div>
+        <div><dt>Talk</dt><dd>Ask one simple question, like “What did Appi notice?” Give them a moment to answer.</dd></div>
+      </dl>
+    </section>
+
+    <section class="faq" id="questions" aria-labelledby="faq-title">
+      <div class="wrap faq-wrap">
+        <div><h2 id="faq-title">Good to know</h2><p>Have another question? <a href="https://payhip.com/CubbonCrayons/contact">Contact Cubbon Crayons</a>.</p></div>
+        <div class="questions">
+          <details><summary>What comes with each story?</summary><p>You get a bilingual A4 story and activity PDF plus a separate two-page family letter in English and Kannada.</p></details>
+          <details><summary>How do I get my files?</summary><p>Choose Buy story to open the Payhip listing. After a successful payment, Payhip shows the download page and emails a link. There’s no physical delivery.</p></details>
+          <details><summary>Can I print the activities at home?</summary><p>Yes. You can print pages for your household. Choose A4 and check the printer’s preview before printing. See the <a href="copyright.html">household-use licence</a> for more details.</p></details>
+          <details><summary>Why is my email on the page?</summary><p>Payhip stamps eligible PDFs with the buyer’s email and purchase date. If another family would like a copy, share the story’s shop link with them.</p></details>
+        </div>
+      </div>
     </section>
   </main>
-  <footer class="site-footer wrap"><span>© 2026 Cubbon Crayons</span><a href="privacy.html">Privacy</a><a href="business.html">Business &amp; Support</a><a href="terms.html">Terms</a><a href="refunds.html">Refunds</a><a href="copyright.html">Copyright &amp; Licence</a><a href="https://payhip.com/CubbonCrayons/contact" rel="noreferrer">Contact</a></footer>
-  <dialog id="story-dialog" aria-labelledby="dialog-title">
-    <form method="dialog"><button class="close" aria-label="Close story details">×</button></form>
-    <div class="dialog-content"><img id="dialog-cover" alt="" width="660" height="934"><div><p class="eyebrow" id="dialog-theme"></p><h2 id="dialog-title"></h2><p class="kannada" id="dialog-kannada" lang="kn"></p><p id="dialog-description"></p><p class="dialog-note" id="dialog-format"></p><p class="dialog-note">Kannada + English · Ages 2–3 with a grown-up</p><p id="dialog-status">This story’s purchase link is currently unavailable.</p><a id="dialog-buy" class="button" rel="noreferrer" hidden>Buy on Payhip <span aria-hidden="true">↗</span></a></div></div>
+
+  <footer class="site-footer wrap">
+    <span>© 2026 Cubbon Crayons</span>
+    <nav aria-label="Store information">
+      <a href="privacy.html">Privacy</a><a href="business.html">Business &amp; Support</a><a href="terms.html">Terms</a>
+      <a href="refunds.html">Refunds</a><a href="copyright.html">Copyright &amp; Licence</a>
+      <a href="https://www.instagram.com/cubboncrayons/">Instagram <span aria-hidden="true">↗</span></a>
+    </nav>
+  </footer>
+
+  <dialog id="sample-dialog" aria-labelledby="sample-title">
+    <div class="sample-heading">
+      <div><p class="eyebrow">Activity preview</p><h2 id="sample-title"></h2></div>
+      <button class="sample-close" type="button" autofocus aria-label="Close activity preview">×</button>
+    </div>
+    <figure class="sample-figure">
+      <img id="sample-image" alt="" width="864" height="1221">
+      <figcaption><span id="sample-caption"></span> <a id="sample-full">Open full-size image <span aria-hidden="true">↗</span></a></figcaption>
+    </figure>
   </dialog>
 </body>
 </html>
