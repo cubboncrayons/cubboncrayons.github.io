@@ -84,6 +84,7 @@ if (dialog && typeof dialog.showModal === 'function') {
       pageTrack.setAttribute('aria-label', pages.length > 1 ? 'Preview pages. Swipe sideways or use the page buttons.' : 'Selected original PDF pages');
       updatePosition(0);
       dialog.showModal();
+      dialog.scrollTop = 0;
       document.documentElement.classList.add('preview-open');
       requestAnimationFrame(() => { pageTrack.scrollTo({left: 0, behavior: 'auto'}); updatePosition(0); });
     });

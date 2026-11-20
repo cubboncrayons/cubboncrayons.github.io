@@ -264,3 +264,10 @@ dialog{border:1px solid var(--line);max-width:min(650px,calc(100% - 30px));max-h
  .home .viewer-slide{height:max(260px,calc(100dvh - 410px))}
  .home .preview-instruction{font-size:.8125rem}
 }
+
+@media(min-width:761px){
+ .home .book-viewer[open]{display:flex;flex-direction:column;overflow:hidden}
+ .home .viewer-header{flex:0 0 auto}
+ .home .viewer-layout{min-height:0;overflow:auto}
+ .home .viewer-slide{height:clamp(280px,calc(100dvh - 390px),620px)}
+}
