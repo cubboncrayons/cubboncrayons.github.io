@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="referrer" content="no-referrer">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
   <meta name="theme-color" content="#fffaf0">
   <meta name="description" content="Kannada–English printable stories, tracing activities and gentle parent prompts. Explore everyday kindness with Cubbon Crayons. A4 PDF stories at ₹49 each.">
   <meta property="og:title" content="Cubbon Crayons · Little stories. Everyday kindness.">
@@ -15,7 +15,8 @@
   <link rel="canonical" href="https://cubboncrayons.github.io/">
   <title>Cubbon Crayons · Kannada–English Stories &amp; Activities</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='13' fill='%23f8ce62'/%3E%3Ctext x='20' y='29' text-anchor='middle' font-size='27' fill='%23372550' font-family='Georgia' font-weight='bold'%3Ec%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=20261120-family-shop">
+  <link rel="stylesheet" href="styles.css?v=20261120-book-viewer">
+  <script src="book-viewer.js?v=20261120" defer></script>
 </head>
 <body class="home">
   <a class="skip-link" href="#main">Skip to stories and activities</a>
@@ -39,41 +40,28 @@
       </div>
     </section>
 
-    <section class="inside-section" id="what-you-get" aria-labelledby="inside-title">
-      <div class="section-heading"><div><p class="eyebrow">MORE THAN A STORY</p><h2 id="inside-title">Read. Talk. Trace.</h2></div><p class="section-intro">One printable book. A little time together.</p></div>
-      <div class="benefits">
-        <article><h3>A familiar little story</h3><p>Auto rides, tiffin boxes and park swings bring kindness into the world your child knows.</p></article>
-        <article><h3>A moment to talk</h3><p>Pause to notice a face, name a feeling or practise a gentle way to ask for help.</p></article>
-        <article><h3>Something to trace</h3><p>Little hands can follow an object from the story. Start with a finger, then try a crayon when ready.</p></article>
-      </div>
-    </section>
+
 
     <section class="collection" id="stories" aria-labelledby="collection-title">
-      <div class="section-heading"><div><p class="eyebrow">THE STORY COLLECTION</p><h2 id="collection-title">Find your next little moment</h2></div><p class="status">₹49 each · Digital PDFs</p></div>
-      <p class="collection-intro">Open “Peek inside” for a story excerpt or overview, an activity illustration and a question to try together.</p>
+      <div class="section-heading"><div><p class="eyebrow">THE STORY COLLECTION</p><h2 id="collection-title">Pick a story. Share a little moment.</h2></div><p class="status">₹49 each · Digital PDFs</p></div>
+      <p class="collection-intro">Small stories about caring, sharing and taking turns. Choose a book to explore with your child.</p>
+      <div class="story-filters" aria-label="Choose a story theme" hidden>
+        <button type="button" data-filter="all" aria-pressed="true">All stories</button>
+        <button type="button" data-filter="caring" aria-pressed="false">Caring</button>
+        <button type="button" data-filter="sharing" aria-pressed="false">Sharing</button>
+        <button type="button" data-filter="turns" aria-pressed="false">Taking turns</button>
+      </div>
+      <p class="sr-only" id="filter-status" role="status" aria-live="polite"></p>
       <div class="grid">
-        <article class="card" id="story-umbrella" data-product="umbrella">
+        <article class="card" id="story-umbrella" data-product="umbrella" data-theme="caring">
           <div class="cover cover-mint"><img src="assets/umbrella.webp" alt="Appi and the Little Blue Umbrella book cover" width="780" height="1103" loading="lazy" decoding="async"></div>
           <div class="card-body">
             <p class="tag">Empathy &amp; kindness</p>
             <h3>Appi and the Little Blue Umbrella</h3>
             <p class="kannada" lang="kn">ಅಪ್ಪಿ ಮತ್ತು ಪುಟ್ಟ ನೀಲಿ ಕೊಡೆ</p>
             <p class="description">Appi notices Meera is cold in the rain. He offers help and turns to Appa when they need a bigger umbrella.</p>
-            <details class="book-preview">
-              <summary>Peek inside<span class="sr-only"> Appi and the Little Blue Umbrella</span></summary>
-              <div class="preview-body">
-                <h4>A story excerpt</h4>
-                <p class="excerpt">Appi was playing in the park. Tap, tap, tap! The rain began. He opened his little blue umbrella.</p>
-                <h4>The tracing activity</h4>
-                <svg class="trace-example" viewBox="0 0 300 260" role="img" aria-labelledby="trace-title-umbrella"><title id="trace-title-umbrella">Simplified dotted umbrella activity illustration</title><g><path d="M45 120 Q150 -40 255 120 Q228 99 202 120 Q176 99 150 120 Q124 99 98 120 Q72 99 45 120Z"/><path d="M150 120V205 Q150 240 120 224 Q109 217 115 204"/></g></svg>
-                <p class="sample-label">Simplified activity illustration; PDF layout differs.</p>
-                <p>Trace the curved canopy, lower edge, straight handle and hook of a big umbrella, one path at a time.</p>
-                <aside class="parent-prompt"><h4>Try a parent prompt</h4><p>“Look at Meera. How do you think she feels?”</p></aside>
-                <h4>Choose the right level of support</h4>
-                <p>Read together: notice how Meera’s feelings change.</p><p>Trace together: curved lines and a hook; try one path at a time.</p>
-                <p class="sample-label">This is a web preview, not a full PDF page.</p>
-              </div>
-            </details>
+            
+            <a class="preview-link" href="assets/umbrella.webp" data-preview="umbrella">View cover<span class="sr-only"> of this book</span></a>
             <div class="card-bottom">
               <span>10 pages · Kannada + English · A4</span>
               <a class="button card-buy" href="https://payhip.com/b/I2Azi" rel="noreferrer" aria-label="Buy Appi and the Little Blue Umbrella for 49 rupees">Buy story · ₹49</a>
@@ -82,28 +70,15 @@
           </div>
         </article>
 
-        <article class="card" id="story-idli" data-product="idli">
+        <article class="card" id="story-idli" data-product="idli" data-theme="sharing">
           <div class="cover cover-peach"><img src="assets/idli.webp" alt="An Idli for Meera book cover" width="780" height="1103" loading="lazy" decoding="async"></div>
           <div class="card-body">
             <p class="tag">Sharing</p>
             <h3>An Idli for Meera</h3>
             <p class="kannada" lang="kn">ಮೀರಾಳಿಗೆ ಒಂದು ಇಡ್ಲಿ</p>
             <p class="description">Meera’s tiffin is empty. Appi offers her an idli, turning an everyday lunch into a moment of sharing.</p>
-            <details class="book-preview">
-              <summary>Peek inside<span class="sr-only"> An Idli for Meera</span></summary>
-              <div class="preview-body">
-                <h4>The story at a glance</h4>
-                <p class="excerpt">Meera’s empty tiffin gives Appi a chance to notice a friend and offer something to share.</p>
-                <h4>The tracing activity</h4>
-                <svg class="trace-example" viewBox="0 0 300 260" role="img" aria-labelledby="trace-title-idli"><title id="trace-title-idli">Simplified dotted idli activity illustration</title><g><ellipse cx="150" cy="134" rx="111" ry="69"/><path d="M45 147Q150 237 255 147"/></g></svg>
-                <p class="sample-label">Simplified activity illustration; PDF layout differs.</p>
-                <p>Trace the rounded idli shape and draw a smile. Talk about a small thing you could share.</p>
-                <aside class="parent-prompt"><h4>Try a parent prompt</h4><p>“How might Meera feel when Appi offers her an idli?”</p></aside>
-                <h4>Choose the right level of support</h4>
-                <p>Read together: talk about sharing something familiar.</p><p>Trace together: rounded shapes; a grown-up can help start.</p>
-                <p class="sample-label">This is a web preview, not a full PDF page.</p>
-              </div>
-            </details>
+            
+            <a class="preview-link" href="assets/idli.webp" data-preview="idli">View cover<span class="sr-only"> of this book</span></a>
             <div class="card-bottom">
               <span>7 pages · Kannada + English · A4</span>
               <a class="button card-buy" href="https://payhip.com/b/aXgsm" rel="noreferrer" aria-label="Buy An Idli for Meera for 49 rupees">Buy story · ₹49</a>
@@ -112,28 +87,15 @@
           </div>
         </article>
 
-        <article class="card" id="story-amma" data-product="amma">
+        <article class="card" id="story-amma" data-product="amma" data-theme="caring">
           <div class="cover cover-yellow"><img src="assets/amma.webp" alt="A Little Help from Appi book cover" width="780" height="1103" loading="lazy" decoding="async"></div>
           <div class="card-body">
             <p class="tag">Helping at home</p>
             <h3>A Little Help from Appi</h3>
             <p class="kannada" lang="kn">ಅಪ್ಪಿಯ ಪುಟ್ಟ ಸಹಾಯ</p>
             <p class="description">Appi notices Amma is tired. Small acts of help become a chance to ask, listen and care.</p>
-            <details class="book-preview">
-              <summary>Peek inside<span class="sr-only"> A Little Help from Appi</span></summary>
-              <div class="preview-body">
-                <h4>A story excerpt</h4>
-                <p class="excerpt">Appi gently touched Amma’s shoulder. “Amma, are you okay? Do you need anything?” he asked.</p>
-                <h4>The tracing activity</h4>
-                <svg class="trace-example" viewBox="0 0 300 260" role="img" aria-labelledby="trace-title-amma"><title id="trace-title-amma">Simplified dotted glass activity illustration</title><g><path d="M90 40H210L190 225H110Z"/><path d="M100 118Q150 132 200 118"/></g></svg>
-                <p class="sample-label">Simplified activity illustration; PDF layout differs.</p>
-                <p>Trace a glass and a toy basket, then practise putting one toy away together.</p>
-                <aside class="parent-prompt"><h4>Try a parent prompt</h4><p>“What small thing can you help with at home?”</p></aside>
-                <h4>Choose the right level of support</h4>
-                <p>Read together: notice tiredness and practise asking before helping.</p><p>Trace together: straight and curved edges across two objects.</p>
-                <p class="sample-label">This is a web preview, not a full PDF page.</p>
-              </div>
-            </details>
+            
+            <a class="preview-link" href="assets/amma.webp" data-preview="amma">View cover<span class="sr-only"> of this book</span></a>
             <div class="card-bottom">
               <span>10 pages · Kannada + English · A4</span>
               <a class="button card-buy" href="https://payhip.com/b/bTf0x" rel="noreferrer" aria-label="Buy A Little Help from Appi for 49 rupees">Buy story · ₹49</a>
@@ -142,28 +104,15 @@
           </div>
         </article>
 
-        <article class="card" id="story-ajja" data-product="ajja">
+        <article class="card" id="story-ajja" data-product="ajja" data-theme="caring">
           <div class="cover cover-mint"><img src="assets/ajja.webp" alt="An Auto Ride for Ajja book cover" width="780" height="1103" loading="lazy" decoding="async"></div>
           <div class="card-body">
             <p class="tag">Caring for others</p>
             <h3>An Auto Ride for Ajja</h3>
             <p class="kannada" lang="kn">ಅಜ್ಜನಿಗಾಗಿ ಆಟೋ ಸವಾರಿ</p>
             <p class="description">Ajja’s knee hurts. Appi goes with him to the doctor in a familiar auto-rickshaw.</p>
-            <details class="book-preview">
-              <summary>Peek inside<span class="sr-only"> An Auto Ride for Ajja</span></summary>
-              <div class="preview-body">
-                <h4>The story at a glance</h4>
-                <p class="excerpt">An auto ride with Ajja becomes a story about noticing pain, staying nearby and showing care.</p>
-                <h4>The tracing activity</h4>
-                <svg class="trace-example" viewBox="0 0 300 260" role="img" aria-labelledby="trace-title-ajja"><title id="trace-title-ajja">Simplified dotted auto-rickshaw activity illustration</title><g><path d="M45 164V84Q45 65 65 65H173L209 105H251V188H45Z"/><path d="M167 72V121H221L192 80"/><path d="M64 89H139V139H64Z"/><circle cx="85" cy="188" r="27"/><circle cx="215" cy="188" r="27"/></g></svg>
-                <p class="sample-label">Simplified activity illustration; PDF layout differs.</p>
-                <p>Trace the auto-rickshaw from the story. Make a gentle auto sound and talk about caring for Ajja.</p>
-                <aside class="parent-prompt"><h4>Try a parent prompt</h4><p>“How might Ajja feel when Appi stays beside him?”</p></aside>
-                <h4>Choose the right level of support</h4>
-                <p>Read together: talk about care when someone feels uncomfortable.</p><p>Trace together: several vehicle parts; choose one part to begin.</p>
-                <p class="sample-label">This is a web preview, not a full PDF page.</p>
-              </div>
-            </details>
+            
+            <a class="preview-link" href="assets/ajja.webp" data-preview="ajja">View cover<span class="sr-only"> of this book</span></a>
             <div class="card-bottom">
               <span>6 pages · Kannada + English · A4</span>
               <a class="button card-buy" href="https://payhip.com/b/HI9zh" rel="noreferrer" aria-label="Buy An Auto Ride for Ajja for 49 rupees">Buy story · ₹49</a>
@@ -172,28 +121,15 @@
           </div>
         </article>
 
-        <article class="card" id="story-park" data-product="park">
+        <article class="card" id="story-park" data-product="park" data-theme="turns">
           <div class="cover cover-lilac"><img src="assets/park.webp" alt="Appi’s Day at the Park book cover" width="780" height="1103" loading="lazy" decoding="async"></div>
           <div class="card-body">
             <p class="tag">Taking turns</p>
             <h3>Appi’s Day at the Park</h3>
             <p class="kannada" lang="kn">ಪಾರ್ಕಿನಲ್ಲಿ ಅಪ್ಪಿ</p>
             <p class="description">Appi and Meera both want the swing. Explore big feelings, gentle hands and words for asking for a turn.</p>
-            <details class="book-preview">
-              <summary>Peek inside<span class="sr-only"> Appi’s Day at the Park</span></summary>
-              <div class="preview-body">
-                <h4>A story excerpt</h4>
-                <p class="excerpt">“The swing!” said Appi. “Suiii, suiii!” he sang as he watched it move.</p>
-                <h4>The tracing activity</h4>
-                <svg class="trace-example" viewBox="0 0 300 260" role="img" aria-labelledby="trace-title-park"><title id="trace-title-park">Simplified dotted swing activity illustration</title><g><path d="M40 225L76 35H224L260 225"/><path d="M103 40V174M197 40V174"/><path d="M93 176Q150 207 207 176L201 190Q150 221 99 190Z"/></g></svg>
-                <p class="sample-label">Simplified activity illustration; PDF layout differs.</p>
-                <p>Trace a swing and a soft cloth. Practise offering help gently and asking for the next turn.</p>
-                <aside class="parent-prompt"><h4>Try a parent prompt</h4><p>“May I have the next turn, please?”</p></aside>
-                <h4>Choose the right level of support</h4>
-                <p>Read together: pause to name feelings and practise safe hands.</p><p>Trace together: straight straps, curved seat and cloth edges.</p>
-                <p class="sample-label">This is a web preview, not a full PDF page.</p>
-              </div>
-            </details>
+            
+            <a class="preview-link" href="assets/park.webp" data-preview="park">View cover<span class="sr-only"> of this book</span></a>
             <div class="card-bottom">
               <span>9 pages · Kannada + English · A4</span>
               <a class="button card-buy" href="https://payhip.com/b/MGgfX" rel="noreferrer" aria-label="Buy Appi’s Day at the Park for 49 rupees">Buy story · ₹49</a>
@@ -204,10 +140,15 @@
       </div>
     </section>
 
-    <section class="support-note" aria-labelledby="support-title">
-      <p class="eyebrow">FOLLOW YOUR CHILD’S PACE</p><h2 id="support-title">Reading together and tracing are different skills.</h2>
-      <p>Enjoy the story aloud with a grown-up. Your child can point, make a sound or name a feeling without holding a pencil. For tracing, try a finger first and offer more help with curves or several parts. One line is enough for a first try.</p>
-      <p>Each preview describes the reading and tracing support involved. Choose by your child’s interest and comfort rather than expecting every activity to suit the same age.</p>
+
+
+    <section class="inside-section" id="what-you-get" aria-labelledby="inside-title">
+      <div class="section-heading"><div><p class="eyebrow">MORE THAN A STORY</p><h2 id="inside-title">Read. Talk. Trace.</h2></div><p class="section-intro">One printable book. A little time together.</p></div>
+      <div class="benefits">
+        <article><h3>A familiar little story</h3><p>Auto rides, tiffin boxes and park swings bring kindness into the world your child knows.</p></article>
+        <article><h3>A moment to talk</h3><p>Pause to notice a face, name a feeling or practise a gentle way to ask for help.</p></article>
+        <article><h3>Something to trace</h3><p>Little hands can follow an object from the story. Start with a finger, then try a crayon when ready.</p></article>
+      </div>
     </section>
 
     <section class="how-section" id="how-it-works" aria-labelledby="how-title">
@@ -240,5 +181,26 @@
     <section class="closing-note" aria-label="Explore the collection"><p>A little story can begin a lovely conversation.</p><a class="button" href="#stories">Choose a story · ₹49 each</a></section>
   </main>
   <footer class="site-footer wrap"><span>© 2026 Cubbon Crayons</span><nav aria-label="Policies and contact"><a href="privacy.html">Privacy</a><a href="business.html">Business &amp; Support</a><a href="terms.html">Terms</a><a href="refunds.html">Refunds</a><a href="copyright.html">Copyright &amp; Licence</a><a href="https://payhip.com/CubbonCrayons/contact" rel="noreferrer">Contact</a><a href="https://www.instagram.com/cubboncrayons/" rel="noreferrer">Instagram</a></nav></footer>
+
+  <dialog id="book-viewer" class="book-viewer" aria-labelledby="viewer-title">
+    <div class="viewer-header"><div><p class="eyebrow">CUBBON CRAYONS</p><h2 id="viewer-title"></h2></div><button class="viewer-close" type="button" aria-label="Close book preview">×</button></div>
+    <div class="viewer-layout">
+      <div class="viewer-page-area">
+        <div id="viewer-pages" class="viewer-pages" tabindex="0" role="region" aria-label="Book preview pages"></div>
+        <div class="viewer-controls" hidden><button id="viewer-previous" type="button">Previous page</button><p id="viewer-position" role="status" aria-live="polite"></p><button id="viewer-next" type="button">Next page</button></div>
+        <div id="viewer-thumbnails" class="viewer-thumbnails" aria-label="Choose a preview page" hidden></div>
+        <p id="viewer-caption" class="viewer-caption"></p>
+        <a id="viewer-enlarge" class="text-link" target="_blank" rel="noopener">Open image at full size</a>
+      </div>
+      <aside class="viewer-purchase">
+        <p id="viewer-theme" class="tag"></p><p id="viewer-description"></p>
+        <p id="viewer-format" class="viewer-format"></p>
+        <p>Kannada + English<br>Read and trace with a grown-up.</p>
+        <a id="viewer-buy" class="button" rel="noreferrer">Buy full book · ₹49</a>
+        <p class="purchase-note">Digital PDF · Print at home<br>No physical delivery</p>
+        <p class="viewer-help">Questions? <a href="https://payhip.com/CubbonCrayons/contact" rel="noreferrer">Contact us</a></p>
+      </aside>
+    </div>
+  </dialog>
 </body>
 </html>
