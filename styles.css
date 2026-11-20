@@ -196,3 +196,37 @@ dialog{border:1px solid var(--line);max-width:min(650px,calc(100% - 30px));max-h
  .home .viewer-purchase .button{margin-top:0}
  .home .viewer-purchase .purchase-note{font-size:.875rem;margin-top:8px}
 }
+
+/* Restrained storefront motion. */
+.home .hero-book{animation:cc-book-drift 7s ease-in-out infinite}
+.home .hero-back{animation-delay:-3.5s;animation-duration:8.5s}
+.home .hero.motion-paused .hero-book{animation-play-state:paused}
+@keyframes cc-book-drift{0%,100%{translate:0 0;rotate:0deg}50%{translate:0 -9px;rotate:1deg}}
+.home .motion-toggle{font:500 .875rem/1.4 var(--body);color:#61546b;background:transparent;border:1px solid #d8c9e4;border-radius:999px;min-height:44px;padding:9px 14px;cursor:pointer;margin-top:12px}
+.home .motion-toggle:focus-visible{outline:3px solid #8761bd;outline-offset:4px}
+.home .button,.home .preview-link{transition:transform 180ms ease,box-shadow 220ms ease,background-color 180ms ease}
+.home .button:active,.home .preview-link:active{transform:translateY(1px) scale(.985)}
+.home .story-filters button{transition:background-color 200ms ease,color 200ms ease,border-color 200ms ease,box-shadow 200ms ease}
+.home .viewer-thumbnails button{transition:border-color 180ms ease,box-shadow 180ms ease}
+.home .viewer-thumbnails button[aria-current=true]{box-shadow:0 0 0 2px #7550a022}
+.home .book-viewer[open]{animation:cc-viewer-in 240ms cubic-bezier(.2,.7,.2,1) both}
+.home .book-viewer[open]::backdrop{animation:cc-backdrop-in 200ms ease both}
+@keyframes cc-viewer-in{from{opacity:0;transform:translateY(8px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes cc-backdrop-in{from{opacity:0}to{opacity:1}}
+.home .benefits article{position:relative}
+.home .benefits article::after{content:"";display:block;height:3px;width:96px;margin-top:18px;background:radial-gradient(circle,#a885c2 1.5px,transparent 2px) left center/10px 3px repeat-x;transform-origin:left;scale:0 1}
+.home .benefits article.trace-visible::after{animation:cc-trace-in 850ms ease-out forwards}
+@keyframes cc-trace-in{to{scale:1 1}}
+@media(hover:hover) and (pointer:fine){
+ .home .button:hover{transform:translateY(-2px);box-shadow:0 6px 16px #432d6026}
+ .home .card .cover img{transition:transform 350ms cubic-bezier(.2,.7,.2,1),box-shadow 350ms ease}
+ .home .card:hover .cover img{transform:translateY(-5px) rotate(-1deg);box-shadow:0 14px 24px #442d3a30}
+}
+@media(prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto!important}
+ .home *,.home *::before,.home *::after{animation:none!important;transition:none!important}
+ .home .hero-book{translate:none;rotate:none}
+ .home .benefits article::after{scale:1 1}
+ .home .motion-toggle{display:none}
+ .home .button:hover,.home .button:active,.home .preview-link:active,.home .card:hover .cover img{transform:none}
+}
