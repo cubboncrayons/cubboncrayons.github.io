@@ -230,3 +230,37 @@ dialog{border:1px solid var(--line);max-width:min(650px,calc(100% - 30px));max-h
  .home .motion-toggle{display:none}
  .home .button:hover,.home .button:active,.home .preview-link:active,.home .card:hover .cover img{transform:none}
 }
+
+/* Original-page previews and a compact product-first layout. */
+.home .hero{min-height:360px}
+.home .hero-copy{padding:30px 0 30px 34px}
+.home .hero h1{font-size:clamp(2.2rem,4.5vw,3.75rem)}
+.home .intro{font-size:1.0625rem;margin:16px 0 18px}
+.home .book-stage{height:340px}
+.home .hero-front{width:185px;top:8%}
+.home .hero-back{width:174px;top:15%}
+.home .collection{padding-top:34px}
+.home .collection .section-heading{margin-bottom:14px}
+.home .collection h2{font-size:clamp(1.8rem,3.2vw,2.4rem)}
+.home .collection-intro{margin-bottom:20px}
+.home .story-filters{margin-bottom:20px}
+.home .card .cover{padding:22px}
+.home .card .cover img{width:min(70%,206px);aspect-ratio:1400/1980;object-fit:contain}
+.home .card .preview-link{background:#f7effc;border-color:#b79acb;font-weight:700}
+.home .preview-instruction{font-size:.875rem;color:#61546b;margin:8px 0}
+.home .viewer-slide{background:#e9e1ee}
+.home .viewer-pages{touch-action:pan-x pan-y pinch-zoom}
+.home .viewer-thumbnails button{position:relative}
+@media(max-width:780px){
+ .home .hero-copy{padding:26px 24px 0}
+ .home .book-stage{height:240px}
+ .home .hero-front{width:132px;left:calc(50% - 112px);top:8%}
+ .home .hero-back{width:124px;left:calc(50% - 4px);top:14%}
+ .home .hero h1{font-size:clamp(2rem,7.8vw,3rem)}
+ .home .hero .format{font-size:.875rem;margin-top:10px}
+ .home .motion-toggle{margin-top:4px}
+ .home .viewer-controls{gap:6px}
+ .home .viewer-controls button{font-size:.8125rem;padding:9px 8px}
+ .home .viewer-slide{height:max(260px,calc(100dvh - 410px))}
+ .home .preview-instruction{font-size:.8125rem}
+}

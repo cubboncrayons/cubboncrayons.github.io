@@ -1,11 +1,5 @@
 'use strict';
-const previewPages = {
-  umbrella: [{ src: 'assets/umbrella.webp', label: 'Book cover' }],
-  idli: [{ src: 'assets/idli.webp', label: 'Book cover' }],
-  amma: [{ src: 'assets/amma.webp', label: 'Book cover' }],
-  ajja: [{ src: 'assets/ajja.webp', label: 'Book cover' }],
-  park: [{ src: 'assets/park.webp', label: 'Book cover' }]
-};
+const previewPages = {"umbrella": [{"src": "assets/previews/umbrella-01.webp", "label": "Cover · page 1", "width": 1400, "height": 1980}, {"src": "assets/previews/umbrella-02.webp", "label": "Story page · page 2", "width": 1400, "height": 1980}, {"src": "assets/previews/umbrella-06.webp", "label": "Tracing activity · page 6", "width": 1400, "height": 1980}], "park": [{"src": "assets/previews/park-01.webp", "label": "Cover · page 1", "width": 1400, "height": 1982}, {"src": "assets/previews/park-02.webp", "label": "Story page · page 2", "width": 1400, "height": 1982}, {"src": "assets/previews/park-04.webp", "label": "Tracing activity · page 4", "width": 1400, "height": 1982}], "amma": [{"src": "assets/previews/amma-01.webp", "label": "Cover · page 1", "width": 1400, "height": 1980}, {"src": "assets/previews/amma-03.webp", "label": "Story page · page 3", "width": 1400, "height": 1980}, {"src": "assets/previews/amma-06.webp", "label": "Tracing activity · page 6", "width": 1400, "height": 1982}], "idli": [{"src": "assets/previews/idli-01.webp", "label": "Cover · page 1", "width": 1400, "height": 1980}, {"src": "assets/previews/idli-03.webp", "label": "Story page · page 3", "width": 1400, "height": 1980}, {"src": "assets/previews/idli-04.webp", "label": "Tracing activity · page 4", "width": 1400, "height": 1980}], "ajja": [{"src": "assets/previews/ajja-01.webp", "label": "Cover · page 1", "width": 1400, "height": 1980}, {"src": "assets/previews/ajja-02.webp", "label": "Story page · page 2", "width": 1400, "height": 1980}, {"src": "assets/previews/ajja-04.webp", "label": "Tracing activity · page 4", "width": 1400, "height": 1980}]};
 const dialog = document.querySelector('#book-viewer');
 const pageTrack = document.querySelector('#viewer-pages');
 const controls = document.querySelector('.viewer-controls');
@@ -62,8 +56,8 @@ if (dialog && typeof dialog.showModal === 'function') {
         const image = document.createElement('img');
         image.src = page.src;
         image.alt = title + ' — ' + page.label;
-        image.width = 780;
-        image.height = 1103;
+        image.width = page.width;
+        image.height = page.height;
         image.decoding = 'async';
         if (i > 0) image.loading = 'lazy';
         const error = document.createElement('p');
@@ -87,7 +81,8 @@ if (dialog && typeof dialog.showModal === 'function') {
       });
       controls.hidden = pages.length < 2;
       thumbnails.hidden = pages.length < 2;
-      pageTrack.setAttribute('aria-label', pages.length > 1 ? 'Preview pages. Swipe sideways or use the page buttons.' : 'Book cover preview');
+      pageTrack.setAttribute('aria-label', pages.length > 1 ? 'Preview pages. Swipe sideways or use the page buttons.' : 'Selected original PDF pages');
+      updatePosition(0);
       dialog.showModal();
       document.documentElement.classList.add('preview-open');
       requestAnimationFrame(() => { pageTrack.scrollTo({left: 0, behavior: 'auto'}); updatePosition(0); });
