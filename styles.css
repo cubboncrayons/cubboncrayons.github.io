@@ -271,3 +271,16 @@ dialog{border:1px solid var(--line);max-width:min(650px,calc(100% - 30px));max-h
  .home .viewer-layout{min-height:0;overflow:auto}
  .home .viewer-slide{height:clamp(280px,calc(100dvh - 390px),620px)}
 }
+
+@media(max-width:760px){
+ .home .viewer-page-area{display:flex;flex-direction:column;overflow:hidden}
+ .home .viewer-pages{flex:1 1 auto;min-height:0}
+ .home .viewer-slide{height:100%;min-height:0}
+ .home .viewer-controls,.home .viewer-thumbnails,.home .viewer-caption,.home .viewer-page-area>.text-link,.home .preview-instruction{flex:0 0 auto}
+}
+@media(max-width:760px) and (max-height:600px){
+ .home .viewer-thumbnails,.home .preview-instruction,.home .viewer-caption{display:none}
+ .home .viewer-page-area{padding:8px 12px}
+ .home .viewer-controls{padding-top:4px}
+ .home .viewer-purchase{padding:8px 16px}
+}
