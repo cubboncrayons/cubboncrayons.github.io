@@ -1,4 +1,5 @@
 const productLinks = {
+  umbrella: 'https://payhip.com/b/I2Azi',
   idli: 'https://payhip.com/b/aXgsm',
   amma: 'https://payhip.com/b/bTf0x',
   ajja: 'https://payhip.com/b/HI9zh',
