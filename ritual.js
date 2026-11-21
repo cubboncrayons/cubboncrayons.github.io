@@ -27,28 +27,3 @@
  }
  select(0);
 })();
-(() => {
- const box=document.querySelector('.listen-control');
- if(!box||!('speechSynthesis' in window)||!('SpeechSynthesisUtterance' in window))return;
- const synth=window.speechSynthesis,button=box.querySelector('button'),label=box.querySelector('.listen-label'),status=box.querySelector('.listen-status');
- let current=null,voices=[];
- function refresh(){voices=synth.getVoices().filter(v=>/^en(?:-|_)/i.test(v.lang));}
- function reset(){current=null;button.setAttribute('aria-pressed','false');label.textContent='Listen to our welcome · English';}
- refresh();synth.addEventListener('voiceschanged',refresh);box.hidden=false;
- button.addEventListener('click',()=>{
-  if(current){current=null;synth.cancel();reset();status.textContent='';return;}
-  refresh();status.textContent='';
-  const speech=new SpeechSynthesisUtterance(document.querySelector('#welcome-transcript').textContent);
-  const score=v=>(/Samantha|Karen|Moira|Veena|Sonia|Female/i.test(v.name)?8:0)+(/^en[-_]IN$/i.test(v.lang)?6:0)+(/^en[-_]GB$/i.test(v.lang)?3:0)+(v.localService?1:0);
-  const chosen=voices.slice().sort((a,b)=>score(b)-score(a))[0];
-  if(chosen)speech.voice=chosen;
-  speech.lang=chosen?chosen.lang:'en-IN';speech.rate=.9;speech.pitch=1.02;speech.volume=.85;
-  current=speech;button.setAttribute('aria-pressed','true');label.textContent='Stop welcome';
-  speech.onend=()=>{if(current===speech)reset();};
-  speech.onerror=()=>{if(current===speech){reset();status.textContent='The read-aloud is unavailable on this device. You can read the welcome below.';}};
-  synth.speak(speech);
- });
- function stop(){if(current){current=null;synth.cancel();reset();}}
- document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
- window.addEventListener('pagehide',stop);
-})();
