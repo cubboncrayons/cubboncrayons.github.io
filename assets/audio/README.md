@@ -1,7 +1,7 @@
 # Cubbon Crayons welcome recordings
 
 Revision 2, 21 November 2026. Conversational scripts in English and Kannada.
-Approved by the owner on 21 November 2026. Used on the homepage: Kannada then English, once per tab session. Autoplay is attempted when visible; if browser policy blocks it, the first real tap/click/key interaction retries playback. Escape stops it. Switching tabs pauses playback. No audio buttons or loop. voice-preview.html remains the manual listening reference.
+Approved by the owner on 21 November 2026. Used on the homepage: Kannada then English, once per tab session. Autoplay is attempted when visible; if browser policy blocks it, the first real tap/click/key interaction retries playback. Escape stops it. Switching tabs pauses playback. No language or Play buttons and no loop. A compact mute/unmute toggle appears during the welcome and remembers the sound preference on this browser. voice-preview.html remains the manual listening reference.
 The previous Kannada voice was approved by the owner; this revision uses the same voice with new words.
 
 Kannada: welcome-kn-v2.mp3. Generated with Ninada 5.1.2 female Studio voice, rate 0.94.

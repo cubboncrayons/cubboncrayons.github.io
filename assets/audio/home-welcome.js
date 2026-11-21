@@ -2,6 +2,20 @@
 (() => {
  const audio=document.querySelector('#site-welcome');
  if(!audio)return;
+ const sound=document.querySelector('#welcome-sound');
+ try{audio.muted=localStorage.getItem('cc-welcome-sound')==='off';}catch{}
+ function syncSound(){
+  if(!sound)return;
+  sound.hidden=!started||finished;
+  sound.textContent=audio.muted?'Sound off · unmute':'Sound on · mute';
+  sound.setAttribute('aria-pressed',String(audio.muted));
+  sound.setAttribute('aria-label',(audio.muted?'Unmute':'Mute')+' welcome narration');
+ }
+ sound?.addEventListener('click',()=>{
+  audio.muted=!audio.muted;
+  try{localStorage.setItem('cc-welcome-sound',audio.muted?'off':'on');}catch{}
+  syncSound();
+ });
  const key='cc-welcome-spoken-v2',tracks=['kn','en'];
  let index=0,finished=false,pending=false,started=false,resume=false;
  try{if(sessionStorage.getItem(key)==='played')return;}catch{}
@@ -19,7 +33,7 @@
   document.addEventListener('keydown',interaction,true);
  }
  function stop(){
-  finished=true;resume=false;audio.pause();disarm();
+  finished=true;resume=false;audio.pause();disarm();syncSound();
  }
  function attempt(){
   if(finished||pending||document.hidden)return;
@@ -29,7 +43,7 @@
   Promise.resolve(promise).then(()=>{
    pending=false;
    if(finished||document.hidden){audio.pause();return;}
-   started=true;resume=false;disarm();
+   started=true;resume=false;disarm();syncSound();
    try{sessionStorage.setItem(key,'played');}catch{}
   }).catch(error=>{
    pending=false;

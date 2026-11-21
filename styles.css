@@ -617,3 +617,19 @@ dialog{border:1px solid var(--line);max-width:min(650px,calc(100% - 30px));max-h
  .home .card-bottom>span{font-size:.875rem}
 }
 @media(max-width:360px){.home .card{grid-template-columns:96px minmax(0,1fr)}}
+
+/* Quiet controls and coordinated motion refinement. */
+.home .hero-controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:10px}
+.home .hero-controls .motion-toggle{margin-top:0}
+.home .sound-toggle{min-height:44px;padding:9px 13px;border:1px solid #b7c5ac;border-radius:999px;background:#fffdf580;color:#34513d;font:600 .8125rem/1.4 var(--body);cursor:pointer}
+.home .sound-toggle[aria-pressed=true]{background:#e3e9db;color:#42523b}
+.home .feature-book{transform:rotate(-5deg) rotateY(var(--book-y,0deg)) rotateX(var(--book-x,0deg));transition:transform 280ms ease-out}
+@media(hover:hover) and (pointer:fine){
+ .home .card-preview{background-image:linear-gradient(#a78546,#a78546);background-size:0 1px;background-position:left bottom;background-repeat:no-repeat;transition:background-size 220ms ease,color 220ms ease}
+ .home .card-preview:hover{background-size:100% 1px;color:#66723e}
+ .home .sound-toggle:hover{background:#e3e9db}
+}
+@media(prefers-reduced-motion:reduce){
+ .home .feature-book{transition:none;transform:rotate(-5deg)}
+ .home .card-preview{transition:none}
+}
