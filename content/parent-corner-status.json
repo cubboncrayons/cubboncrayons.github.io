@@ -1,0 +1,18 @@
+{
+  "article_id": "sharing-a-favourite-toy",
+  "status": "draft",
+  "languages": [
+    "en",
+    "kn"
+  ],
+  "published": false,
+  "owner_approval_required": true,
+  "source_snapshot_commit": "69c40851a8ef91458ab48276878070f9b3e18436",
+  "source_paths": [
+    "content/parent-corner-pilot.json",
+    "scripts/build-parent-corner.py",
+    "parent-corner/sharing-a-favourite-toy.html",
+    "parent-corner/sharing-a-favourite-toy-kn.html"
+  ],
+  "note": "Draft preserved in the source snapshot. Restore to a review surface first; publish only after owner approval of the final draft."
+}
