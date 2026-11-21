@@ -47,7 +47,7 @@ const previewPages = {"umbrella":[{"src":"assets/previews/umbrella-01.webp","lab
  track.addEventListener('scroll',()=>{
   const first=track.firstElementChild;const index=frames().reduce((best,p,i)=>Math.abs(p.offsetLeft-first.offsetLeft-track.scrollLeft)<Math.abs(frames()[best].offsetLeft-first.offsetLeft-track.scrollLeft)?i:best,0);update(index);
  },{passive:true});
- area.addEventListener('mouseenter',()=>hovered=true);area.addEventListener('mouseleave',()=>hovered=false);
+ area.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')hovered=true;});area.addEventListener('pointerleave',()=>hovered=false);
  if('IntersectionObserver' in window)new IntersectionObserver(e=>visible=e[0].isIntersecting,{threshold:.2}).observe(track);
  setInterval(()=>{if(playing&&visible&&!hovered&&!document.hidden&&!reduced.matches&&!area.querySelector(':focus-visible'))move((current+1)%3,true);},5000);
  reduced.addEventListener('change',()=>{if(reduced.matches)pause();});
