@@ -429,3 +429,22 @@ dialog{border:1px solid var(--line);max-width:min(650px,calc(100% - 30px));max-h
  .home .card .cover img{width:min(80%,260px)}
 }
 @media(prefers-reduced-motion:reduce){.home .faq-list details{transition:none}}
+
+.home .age-range{white-space:nowrap}
+@media(max-width:780px){
+ .home .site-header nav{flex-wrap:nowrap;justify-content:space-between;gap:8px}
+ .home .site-header nav a[href="#how-it-works"]{display:none}
+ .home .hero .book-stage{grid-row:1;height:265px}
+ .home .hero-copy{grid-row:2;padding:8px 22px 24px}
+ .home .hero-front{width:155px;left:calc(50% - 125px);top:8%}
+ .home .hero-back{width:145px;left:calc(50% - 4px);top:16%}
+ .home .inline-preview{display:flex;flex-direction:column;align-items:stretch;gap:0}
+ .home .preview-copy{display:contents}
+ .home .inline-preview .section-heading{order:0;margin-bottom:18px}
+ .home .preview-intro,.home .preview-picker-label{display:none}
+ .home .preview-books{order:1;margin-bottom:14px;scrollbar-width:none;padding-bottom:4px}
+ .home .preview-books::-webkit-scrollbar{display:none}
+ .home .preview-reader{order:2;margin-bottom:22px}
+ .home .preview-summary{order:3}
+ .home .preview-assurance{order:4;margin-bottom:0}
+}
