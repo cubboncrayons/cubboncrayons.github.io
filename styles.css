@@ -633,3 +633,6 @@ dialog{border:1px solid var(--line);max-width:min(650px,calc(100% - 30px));max-h
  .home .feature-book{transition:none;transform:rotate(-5deg)}
  .home .card-preview{transition:none}
 }
+
+.home #welcome-sound{position:fixed;right:20px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:40;background:#fffdf5;box-shadow:0 4px 18px #1f3f3026;border-color:#9dab90}
+@media(max-width:780px){.home #welcome-sound{right:12px;bottom:calc(12px + env(safe-area-inset-bottom));font-size:.875rem;padding-inline:16px}}
