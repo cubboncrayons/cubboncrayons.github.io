@@ -344,3 +344,12 @@ dialog{border:1px solid var(--line);max-width:min(650px,calc(100% - 30px));max-h
  .home .hero .star,.home .hero .orbit{scale:1;rotate:0deg}
  .home .sample-page a:hover,.home .preview-books button:hover,.home .sample-controls button:hover{transform:none}
 }
+
+/* Familiar, accessible three-page carousel indicators. */
+.home .sample-dots{display:flex;justify-content:center;align-items:center;gap:0;margin:10px auto 0}
+.home .sample-dots button{display:grid;place-items:center;width:44px;height:44px;padding:0;border:0;border-radius:50%;background:transparent;cursor:pointer;touch-action:manipulation}
+.home .sample-dots button span{display:block;width:10px;height:10px;border-radius:999px;background:#b5a1c3;transition:width 250ms ease,background-color 250ms ease,transform 250ms ease}
+.home .sample-dots button[aria-current=true] span{width:26px;background:var(--plum)}
+.home .sample-dots button:hover span{background:#7550a0;transform:scale(1.1)}
+.home .sample-dots+.sample-controls{margin-top:0}
+@media(prefers-reduced-motion:reduce){.home .sample-dots button span{transition:none}.home .sample-dots button:hover span{transform:none}}

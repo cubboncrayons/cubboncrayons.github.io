@@ -5,11 +5,15 @@ const previewPages = {"umbrella":[{"src":"assets/previews/umbrella-01.webp","lab
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  const prev=document.querySelector('#sample-prev'),next=document.querySelector('#sample-next'),play=document.querySelector('#sample-play');
  let current=0,playing=!reduced.matches,visible=false,hovered=false;
+ const dots=document.querySelector('.sample-dots');
+ dots.hidden=false;
+ dots.addEventListener('click',e=>{const button=e.target.closest('[data-slide]');if(button)move(Number(button.dataset.slide));});
  function frames(){return [...track.children];}
  function update(i){
   current=Math.max(0,Math.min(2,i));
   document.querySelector('#sample-position').textContent=(current+1)+' of 3';
   prev.disabled=current===0;next.disabled=current===2;
+  for(const dot of dots.querySelectorAll('button')){if(Number(dot.dataset.slide)===current)dot.setAttribute('aria-current','true');else dot.removeAttribute('aria-current');}
  }
  function move(i,auto=false){
   const page=frames()[i];if(!page)return;
@@ -22,7 +26,7 @@ const previewPages = {"umbrella":[{"src":"assets/previews/umbrella-01.webp","lab
  if(reduced.matches)pause();
  chooser.addEventListener('click',e=>{
   const button=e.target.closest('[data-book]');if(!button)return;
-  pause();const key=button.dataset.book,card=document.querySelector('[data-product="'+key+'"]'),title=card.querySelector('h3').textContent;
+  const key=button.dataset.book,card=document.querySelector('[data-product="'+key+'"]'),title=card.querySelector('h3').textContent;
   for(const b of chooser.querySelectorAll('button'))b.setAttribute('aria-pressed',String(b===button));
   document.querySelector('#sample-title').textContent=title;
   document.querySelector('#sample-format').textContent=card.querySelector('.card-bottom>span').textContent;
@@ -44,8 +48,8 @@ const previewPages = {"umbrella":[{"src":"assets/previews/umbrella-01.webp","lab
   const first=track.firstElementChild;const index=frames().reduce((best,p,i)=>Math.abs(p.offsetLeft-first.offsetLeft-track.scrollLeft)<Math.abs(frames()[best].offsetLeft-first.offsetLeft-track.scrollLeft)?i:best,0);update(index);
  },{passive:true});
  area.addEventListener('mouseenter',()=>hovered=true);area.addEventListener('mouseleave',()=>hovered=false);
- if('IntersectionObserver' in window)new IntersectionObserver(e=>visible=e[0].isIntersecting,{threshold:.25}).observe(area);
- setInterval(()=>{if(playing&&visible&&!hovered&&!document.hidden&&!reduced.matches&&!area.contains(document.activeElement))move((current+1)%3,true);},6500);
+ if('IntersectionObserver' in window)new IntersectionObserver(e=>visible=e[0].isIntersecting,{threshold:.2}).observe(track);
+ setInterval(()=>{if(playing&&visible&&!hovered&&!document.hidden&&!reduced.matches&&!area.querySelector(':focus-visible'))move((current+1)%3,true);},5000);
  reduced.addEventListener('change',()=>{if(reduced.matches)pause();});
  document.querySelector('#sample-position').setAttribute('aria-live',playing?'off':'polite');update(0);
 })();
