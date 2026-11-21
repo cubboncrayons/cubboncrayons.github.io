@@ -1,7 +1,7 @@
 # Cubbon Crayons welcome recordings
 
 Revision 2, 21 November 2026. Conversational scripts in English and Kannada.
-Preview: voice-preview.html. Draft: revised wording and English voice await listening review.
+Approved by the owner on 21 November 2026. Used on the homepage: Kannada then English, once per tab session. Autoplay is attempted when visible; if browser policy blocks it, the first real tap/click/key interaction retries playback. Escape stops it. Switching tabs pauses playback. No audio buttons or loop. voice-preview.html remains the manual listening reference.
 The previous Kannada voice was approved by the owner; this revision uses the same voice with new words.
 
 Kannada: welcome-kn-v2.mp3. Generated with Ninada 5.1.2 female Studio voice, rate 0.94.
@@ -16,7 +16,7 @@ Model files: https://github.com/thewh1teagle/kokoro-onnx/releases/tag/model-file
 
 Sentence pauses; high-pass 65 Hz; loudness normalization -18 LUFS / true peak -2 dB; 24 kHz mono, 64 kbps MP3.
 Newly generated synthetic narration. No custom voice cloning.
-Audio starts only after choosing a language. Homepage audio remains disabled during review.
+The homepage uses home-welcome.js; the separate manual reference uses welcome-player.js.
 Original welcome-en.mp3 and welcome-kn.mp3 are archived first drafts, not used by the revision 2 player.
 
 ## English transcript

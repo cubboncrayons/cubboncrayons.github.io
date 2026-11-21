@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="referrer" content="no-referrer">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'self'; script-src 'self'; media-src 'self'; base-uri 'none'; form-action 'none'">
   <meta name="theme-color" content="#fffaf0">
   <meta name="description" content="Kannada–English printable stories, tracing activities and gentle parent prompts. Explore everyday kindness with Cubbon Crayons. A4 PDF stories at ₹49 each.">
   <meta property="og:title" content="Cubbon Crayons · Little stories. Everyday kindness.">
@@ -19,8 +19,11 @@
   <script src="book-viewer.js?v=20261121-editorial" defer></script>
   <script src="ritual.js?v=20261121-no-device-voice" defer></script>
   <script src="motion.js?v=20261121-editorial" defer></script>
+  <script src="assets/audio/home-welcome.js?v=20261121-auto" defer></script>
 </head>
 <body class="home">
+  <audio id="site-welcome" preload="none" playsinline aria-label="Cubbon Crayons welcome in Kannada, then English"></audio>
+  <p class="sr-only">A short welcome plays in Kannada, then English, once per visit session. Press Escape to stop the welcome.</p>
   <a class="skip-link" href="#main">Skip to stories and activities</a>
   <header class="site-header wrap">
     <a class="brand" href="#top"><span class="mark" aria-hidden="true">c<span>.</span></span> Cubbon Crayons</a>
@@ -189,6 +192,7 @@
     <section class="faq-section" id="faq" aria-labelledby="faq-title">
       <div class="section-heading"><div><p class="eyebrow">A FEW HELPFUL ANSWERS</p><h2 id="faq-title">Before you begin</h2></div></div>
       <div class="faq-list">
+        <details><summary>Read the welcome message</summary><p lang="kn">ನಮಸ್ಕಾರ! ನಿಮ್ಮ ಮಗುವಿನ ಜೊತೆ ಒಂದು ಕಥೆ ಓದೋಣವಾ? ಕಥೆ ಓದ್ತಾ, ಚಿತ್ರ ನೋಡ್ತಾ, ಮಗುವಿಗೆ ಹೇಗಿತ್ತು ಅಂತ ಕೇಳಿ. ಆಮೇಲೆ ಜೊತೆಯಾಗಿ ಒಂದು ಚಿಕ್ಕ ಚಟುವಟಿಕೆ ಮಾಡಿ. ದಿನಕ್ಕೆ ಸ್ವಲ್ಪ ಹೊತ್ತು, ನೀವು ಮತ್ತು ನಿಮ್ಮ ಮಗು. ಬನ್ನಿ, ಒಂದು ಕಥೆ ನೋಡೋಣ!</p><p lang="en">Got a few minutes with your little one? Let's read a story together. Look at the pictures, ask how they feel, and try a little activity. No rush. Just you, your child, and a little time together. Come on, let's pick a story.</p><p>AI-generated narration in Kannada and English. <a href="assets/audio/README.md">Voice credits</a>.</p></details>
         <details><summary>Will a printed book be delivered?</summary><p>No. You receive a digital PDF to download and print at home or at a print shop. There is no physical delivery.</p></details>
         <details><summary>How do I get my file after buying?</summary><p>Complete your purchase on Payhip. After successful payment, use its download page or the download link in your purchase email. If you cannot find the email, check spam, then <a href="https://payhip.com/CubbonCrayons/contact" rel="noreferrer">contact us through Payhip</a> for help.</p></details>
         <details><summary>Are the stories in Kannada or English?</summary><p>The books in this collection include Kannada and English. Read in whichever language feels comfortable, or enjoy both together.</p></details>
