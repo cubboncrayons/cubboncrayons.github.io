@@ -1,11 +1,11 @@
 {
   "article_id": "sharing-a-favourite-toy",
-  "status": "draft",
+  "status": "published",
   "languages": [
     "en",
     "kn"
   ],
-  "published": false,
+  "published": true,
   "owner_approval_required": true,
   "source_snapshot_commit": "69c40851a8ef91458ab48276878070f9b3e18436",
   "source_paths": [
@@ -14,5 +14,6 @@
     "parent-corner/sharing-a-favourite-toy.html",
     "parent-corner/sharing-a-favourite-toy-kn.html"
   ],
-  "note": "Draft preserved in the source snapshot. Restore to a review surface first; publish only after owner approval of the final draft."
+  "note": "This proposed publication becomes effective only when the owner merges the review request. Do not merge automatically.",
+  "approval_method": "Owner merges this reviewed change into main"
 }
