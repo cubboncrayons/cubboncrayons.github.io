@@ -353,3 +353,79 @@ dialog{border:1px solid var(--line);max-width:min(650px,calc(100% - 30px));max-h
 .home .sample-dots button:hover span{background:#7550a0;transform:scale(1.1)}
 .home .sample-dots+.sample-controls{margin-top:0}
 @media(prefers-reduced-motion:reduce){.home .sample-dots button span{transition:none}.home .sample-dots button:hover span{transform:none}}
+
+/* A closer, quieter reading experience. */
+.home .inline-preview{display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);gap:40px;align-items:center;padding:36px;background:linear-gradient(135deg,#f5eef9,#f0e9f6)}
+.home .preview-copy,.home .preview-reader{min-width:0}
+.home .inline-preview .section-heading{display:block;margin:0 0 20px}
+.home .inline-preview h2{font-size:clamp(2rem,3.4vw,3rem);line-height:1.08}
+.home .preview-intro{font-size:1.0625rem;color:var(--muted);max-width:370px;margin:0 0 24px;line-height:1.65}
+.home .preview-picker-label{font-size:.875rem;font-weight:700;color:var(--plum);margin:0 0 12px}
+.home .preview-books{gap:8px;margin:0 0 26px}
+.home .preview-books button{font-size:.875rem;min-height:46px;padding:11px 14px;text-align:left}
+.home .preview-summary{display:block;padding-top:24px;border-top:1px solid #d9cbe4;margin:0}
+.home .preview-summary h3{font-size:1.5rem;max-width:360px}
+.home .preview-summary .button{margin-top:18px;min-height:48px}
+.home .preview-assurance{font-size:.875rem;line-height:1.7;color:var(--muted);margin:16px 0 0;max-width:370px}
+.home .sample-track{background:transparent;border-radius:8px;scrollbar-width:none}
+.home .sample-track::-webkit-scrollbar{display:none}
+.home .sample-page{padding:14px 12px 8px}
+.home .sample-page a{width:100%;max-width:460px;box-shadow:0 8px 22px #35264b1a}
+.home .sample-page img{width:100%;height:auto;max-height:none;border-radius:4px}
+.home .sample-page figcaption{font-size:.875rem;font-weight:500;margin-top:15px}
+.home .reader-toolbar{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:4px}
+.home .sample-dots{margin:0}
+.home .sample-controls{display:block;margin:0}
+.home .sample-controls #sample-play{margin:0;min-width:66px;min-height:44px;padding:8px 12px;background:transparent;border-color:#cfbedc;font-size:.875rem}
+.home .sample-note{margin:6px 0 0;font-size:.875rem}
+.home .hero{min-height:400px}
+.home .hero-copy{padding:38px 0 38px 38px}
+.home .hero .intro{max-width:420px;font-size:1.125rem}
+.home .hero .format{max-width:390px;font-size:.875rem;line-height:1.6}
+.home .book-stage{height:380px}
+.home .hero-front{width:210px;top:8%;left:19%}
+.home .hero-back{width:198px;top:16%;left:47%}
+.home .card .cover{padding:22px 16px}
+.home .card .cover img{width:min(82%,240px);max-width:100%}
+.home .card .tag{font-size:.875rem;letter-spacing:.06em}
+.home .benefits{grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 48px}
+.home .benefits article{padding:22px 24px;border:1px solid #e7dcea;border-left:3px solid #c8afd8;background:#fffdf9;border-radius:0 16px 16px 0}
+.home .motion-toggle{font-size:.875rem;min-height:44px}
+.home .faq-list details[open]{background:#f7f0fa}
+.home .faq-list details{transition:background-color 220ms ease}
+@media(min-width:781px) and (max-width:1050px){
+ .home .inline-preview{gap:24px;padding:28px}
+ .home .preview-books button{font-size:.875rem;padding:10px 12px}
+ .home .hero-front{width:180px;left:12%}
+ .home .hero-back{width:170px;left:44%}
+}
+@media(max-width:780px){
+ .home .site-header{flex-wrap:wrap;gap:12px;padding:16px 0}
+ .home .site-header nav{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:.875rem}
+ .home .inline-preview{display:block;padding:24px 16px}
+ .home .inline-preview h2{font-size:2.1rem}
+ .home .inline-preview h2 br{display:none}
+ .home .preview-intro{max-width:none;margin-bottom:20px;font-size:1rem}
+ .home .preview-books{margin:0 -3px 20px;padding-bottom:10px}
+ .home .preview-summary{padding-top:20px}
+ .home .preview-summary h3{font-size:1.35rem}
+ .home .preview-summary .button{width:100%;margin-top:14px}
+ .home .preview-assurance{margin:12px 0 18px;font-size:.875rem}
+ .home .preview-reader{margin:0 -6px}
+ .home .sample-page{padding:8px 6px}
+ .home .sample-page a{max-width:460px}
+ .home .reader-toolbar{gap:8px;margin-top:6px}
+ .home .sample-controls #sample-play{margin:0}
+ .home .sample-note{font-size:.875rem;line-height:1.5;margin-inline:8px}
+ .home .hero-copy{padding:28px 24px 0}
+ .home .hero .intro{font-size:1rem}
+ .home .hero .format{font-size:.875rem}
+ .home .book-stage{height:305px}
+ .home .hero-front{width:170px;left:calc(50% - 137px);top:8%}
+ .home .hero-back{width:160px;left:calc(50% - 8px);top:16%}
+ .home .hero .motion-toggle{margin-top:10px}
+ .home .benefits{grid-template-columns:1fr;gap:16px}
+ .home .benefits article{padding:20px}
+ .home .card .cover img{width:min(80%,260px)}
+}
+@media(prefers-reduced-motion:reduce){.home .faq-list details{transition:none}}

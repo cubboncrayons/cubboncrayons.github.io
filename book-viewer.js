@@ -3,7 +3,7 @@ const previewPages = {"umbrella":[{"src":"assets/previews/umbrella-01.webp","lab
 (() => {
  const area=document.querySelector('.inline-preview'),track=document.querySelector('.sample-track'),chooser=document.querySelector('.preview-books');
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
- const prev=document.querySelector('#sample-prev'),next=document.querySelector('#sample-next'),play=document.querySelector('#sample-play');
+ const play=document.querySelector('#sample-play');
  let current=0,playing=!reduced.matches,visible=false,hovered=false;
  const dots=document.querySelector('.sample-dots');
  dots.hidden=false;
@@ -12,7 +12,7 @@ const previewPages = {"umbrella":[{"src":"assets/previews/umbrella-01.webp","lab
  function update(i){
   current=Math.max(0,Math.min(2,i));
   document.querySelector('#sample-position').textContent=(current+1)+' of 3';
-  prev.disabled=current===0;next.disabled=current===2;
+  
   for(const dot of dots.querySelectorAll('button')){if(Number(dot.dataset.slide)===current)dot.setAttribute('aria-current','true');else dot.removeAttribute('aria-current');}
  }
  function move(i,auto=false){
@@ -20,8 +20,8 @@ const previewPages = {"umbrella":[{"src":"assets/previews/umbrella-01.webp","lab
   if(!auto)pause();
   track.scrollTo({left:page.offsetLeft-track.firstElementChild.offsetLeft,behavior:reduced.matches?'auto':'smooth'});update(i);
  }
- function pause(){document.querySelector('#sample-position').setAttribute('aria-live','polite');playing=false;play.textContent='Play page slideshow';play.setAttribute('aria-pressed','false');}
- play.addEventListener('click',()=>{playing=!playing;document.querySelector('#sample-position').setAttribute('aria-live',playing?'off':'polite');play.textContent=playing?'Pause page slideshow':'Play page slideshow';play.setAttribute('aria-pressed',String(playing));});
+ function pause(){document.querySelector('#sample-position').setAttribute('aria-live','polite');playing=false;play.textContent='Play';play.setAttribute('aria-label','Play page slideshow');play.setAttribute('aria-pressed','false');}
+ play.addEventListener('click',()=>{playing=!playing;document.querySelector('#sample-position').setAttribute('aria-live',playing?'off':'polite');play.textContent=playing?'Pause':'Play';play.setAttribute('aria-label',playing?'Pause page slideshow':'Play page slideshow');play.setAttribute('aria-pressed',String(playing));});
  chooser.hidden=false;document.querySelector('.sample-controls').hidden=false;
  if(reduced.matches)pause();
  chooser.addEventListener('click',e=>{
@@ -41,7 +41,7 @@ const previewPages = {"umbrella":[{"src":"assets/previews/umbrella-01.webp","lab
   track.scrollTo({left:0,behavior:'auto'});update(0);
   if(!reduced.matches&&track.animate)track.animate([{opacity:.4,transform:'translateY(8px)'},{opacity:1,transform:'none'}],{duration:400,easing:'ease-out'});
  });
- prev.addEventListener('click',()=>move(current-1));next.addEventListener('click',()=>move(current+1));
+ 
  track.addEventListener('pointerdown',pause,{passive:true});
  track.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();move(Math.min(2,current+1));}if(e.key==='ArrowLeft'){e.preventDefault();move(Math.max(0,current-1));}});
  track.addEventListener('scroll',()=>{
