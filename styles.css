@@ -636,3 +636,12 @@ dialog{border:1px solid var(--line);max-width:min(650px,calc(100% - 30px));max-h
 
 .home #welcome-sound{position:fixed;right:20px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:40;background:#fffdf5;box-shadow:0 4px 18px #1f3f3026;border-color:#9dab90}
 @media(max-width:780px){.home #welcome-sound{right:12px;bottom:calc(12px + env(safe-area-inset-bottom));font-size:.875rem;padding-inline:16px}}
+
+/* Larger complete book covers within the mobile card header. */
+@media(max-width:780px){
+ .home .card{grid-template-columns:124px minmax(0,1fr)}
+ .home .card .cover{padding:12px 6px}
+ .home .card .cover img{width:100%;height:auto;max-height:none;object-fit:contain;margin:0}
+ .home .card .tag,.home .card h3,.home .card .kannada{margin-left:8px}
+}
+@media(max-width:360px){.home .card{grid-template-columns:108px minmax(0,1fr)}}
