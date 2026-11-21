@@ -28,6 +28,8 @@ Use comments to discover questions; use reputable child-development organisation
 
 Comfort the parent before guiding them. The reader should feel able to discuss the issue without blame. Recognise the specific awkward or upsetting moment, without insisting all parents feel the same. Use warm, calm everyday language and manageable options. Validate feelings without endorsing harmful actions. No shame, child labels, empty praise, fear-based hooks, pressure to parent perfectly or promises that a script always works. Finish the useful answer; do not withhold it to force another click.
 
+Read each version aloud as an editorial check: would a parent comfortably say these words at home? Use short, natural Kannada sentences and gentle, familiar phrasing in child-facing examples. Keep evidence and the scope note together at the end; remove repeated qualifications from practical advice. Maintain the same meaning in both languages without mirroring English sentence structure. End with one manageable next step, not pressure to get everything right.
+
 ## Bilingual article template
 
 Produce complete English and Kannada versions from an original editorial outline. Translate meaning and reassurance naturally; do not translate a competitor's answer. Proofread English and Kannada spelling, grammar, titles, conjuncts and vowel signs. Flag unresolved uncertainty and retain draft status where needed.

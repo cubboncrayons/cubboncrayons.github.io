@@ -120,3 +120,5 @@
 .editorial:lang(kn) .language-choice a[lang=en]{font-family:system-ui,sans-serif}
 .language-choice a[lang=kn]{font-family:CCKannadaReading,CCKannada,system-ui,sans-serif;font-weight:500}
 @media(max-width:780px){.editorial:lang(kn) .article-prose{font-size:1.0625rem}.editorial:lang(kn) .say-line{font-size:1.25rem;line-height:1.95}.editorial:lang(kn) .article-header h1{font-size:1.8rem;line-height:1.7}.editorial:lang(kn) .first-read h2{font-size:1.6rem;line-height:1.7}}
+
+.article-prose .gentle-close{font-weight:600;color:#31513e;margin-top:24px}
