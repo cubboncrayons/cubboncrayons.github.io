@@ -41,12 +41,12 @@
         const siblings = [...entry.target.parentElement.children];
         const stagger = Math.min(siblings.indexOf(entry.target), 3) * 65;
         play(entry.target, [
-          {opacity: 0, transform: 'translateY(16px)'},
+          {opacity: 0, transform: 'translateY(24px)'},
           {opacity: 1, transform: 'translateY(0)'}
-        ], {duration: 480, delay: stagger, easing: 'cubic-bezier(.2,.7,.2,1)'});
+        ], {duration: 650, delay: stagger, easing: 'cubic-bezier(.2,.7,.2,1)'});
       });
     }, {threshold: .08});
-    document.querySelectorAll('.card, .benefits article, .how-list li, .founder-note').forEach(element => observer.observe(element));
+    document.querySelectorAll('.card, .benefits article, .how-list li, .founder-note, .section-heading, .preview-summary').forEach(element => observer.observe(element));
   } else {
     document.querySelectorAll('.benefits article').forEach(element => element.classList.add('trace-visible'));
   }

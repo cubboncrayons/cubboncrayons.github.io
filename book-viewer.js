@@ -1,124 +1,54 @@
 'use strict';
-const previewPages = {"umbrella": [{"src": "assets/previews/umbrella-01.webp", "label": "Cover · page 1", "width": 1400, "height": 1980}, {"src": "assets/previews/umbrella-02.webp", "label": "Story page · page 2", "width": 1400, "height": 1980}, {"src": "assets/previews/umbrella-06.webp", "label": "Tracing activity · page 6", "width": 1400, "height": 1980}], "park": [{"src": "assets/previews/park-01.webp", "label": "Cover · page 1", "width": 1400, "height": 1982}, {"src": "assets/previews/park-02.webp", "label": "Story page · page 2", "width": 1400, "height": 1982}, {"src": "assets/previews/park-04.webp", "label": "Tracing activity · page 4", "width": 1400, "height": 1982}], "amma": [{"src": "assets/previews/amma-01.webp", "label": "Cover · page 1", "width": 1400, "height": 1980}, {"src": "assets/previews/amma-03.webp", "label": "Story page · page 3", "width": 1400, "height": 1980}, {"src": "assets/previews/amma-06.webp", "label": "Tracing activity · page 6", "width": 1400, "height": 1982}], "idli": [{"src": "assets/previews/idli-01.webp", "label": "Cover · page 1", "width": 1400, "height": 1980}, {"src": "assets/previews/idli-03.webp", "label": "Story page · page 3", "width": 1400, "height": 1980}, {"src": "assets/previews/idli-04.webp", "label": "Tracing activity · page 4", "width": 1400, "height": 1980}], "ajja": [{"src": "assets/previews/ajja-01.webp", "label": "Cover · page 1", "width": 1400, "height": 1980}, {"src": "assets/previews/ajja-02.webp", "label": "Story page · page 2", "width": 1400, "height": 1980}, {"src": "assets/previews/ajja-04.webp", "label": "Tracing activity · page 4", "width": 1400, "height": 1980}]};
-const dialog = document.querySelector('#book-viewer');
-const pageTrack = document.querySelector('#viewer-pages');
-const controls = document.querySelector('.viewer-controls');
-const thumbnails = document.querySelector('#viewer-thumbnails');
-const previous = document.querySelector('#viewer-previous');
-const next = document.querySelector('#viewer-next');
-const caption = document.querySelector('#viewer-caption');
-const enlarge = document.querySelector('#viewer-enlarge');
-const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-let pages = [], current = 0, trigger = null, scrollFrame = 0;
-
-function updatePosition(index) {
-  current = Math.max(0, Math.min(pages.length - 1, index));
-  document.querySelector('#viewer-position').textContent = (current + 1) + ' of ' + pages.length;
-  caption.textContent = pages[current].label;
-  enlarge.href = pages[current].src;
-  previous.disabled = current === 0;
-  next.disabled = current === pages.length - 1;
-  for (const [i, button] of [...thumbnails.children].entries()) {
-    button.setAttribute('aria-current', String(i === current));
-  }
-}
-function moveTo(index) {
-  const destination = Math.max(0, Math.min(pages.length - 1, index));
-  pageTrack.scrollTo({
-    left: destination * pageTrack.clientWidth,
-    behavior: reducedMotion.matches ? 'auto' : 'smooth'
-  });
-  updatePosition(destination);
-}
-
-if (dialog && typeof dialog.showModal === 'function') {
-  for (const link of document.querySelectorAll('[data-preview]')) {
-    link.setAttribute('aria-haspopup', 'dialog');
-    link.addEventListener('click', event => {
-      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
-      const card = link.closest('.card');
-      const selected = previewPages[link.dataset.preview];
-      if (!selected || !selected.length) return;
-      event.preventDefault();
-      trigger = link;
-      pages = selected;
-      const title = card.querySelector('h3').textContent;
-      document.querySelector('#viewer-title').textContent = title;
-      document.querySelector('#viewer-theme').textContent = card.querySelector('.tag').textContent;
-      document.querySelector('#viewer-description').textContent = card.querySelector('.description').textContent;
-      document.querySelector('#viewer-format').textContent = card.querySelector('.card-bottom > span').textContent;
-      document.querySelector('#viewer-buy').href = card.querySelector('.card-buy').href;
-      pageTrack.replaceChildren();
-      thumbnails.replaceChildren();
-      pages.forEach((page, i) => {
-        const figure = document.createElement('figure');
-        figure.className = 'viewer-slide';
-        const image = document.createElement('img');
-        image.src = page.src;
-        image.alt = title + ' — ' + page.label;
-        image.width = page.width;
-        image.height = page.height;
-        image.decoding = 'async';
-        if (i > 0) image.loading = 'lazy';
-        const error = document.createElement('p');
-        error.className = 'viewer-image-error';
-        error.hidden = true;
-        error.textContent = 'This preview image could not load. Please close and try again.';
-        image.addEventListener('error', () => { image.hidden = true; error.hidden = false; });
-        figure.append(image, error);
-        pageTrack.append(figure);
-        const button = document.createElement('button');
-        button.type = 'button';
-        button.setAttribute('aria-label', 'Show ' + page.label + ', preview ' + (i + 1));
-        const thumb = document.createElement('img');
-        thumb.src = page.src;
-        thumb.alt = '';
-        thumb.width = 50;
-        thumb.height = 71;
-        button.append(thumb);
-        button.addEventListener('click', () => moveTo(i));
-        thumbnails.append(button);
-      });
-      controls.hidden = pages.length < 2;
-      thumbnails.hidden = pages.length < 2;
-      pageTrack.setAttribute('aria-label', pages.length > 1 ? 'Preview pages. Swipe sideways or use the page buttons.' : 'Selected original PDF pages');
-      updatePosition(0);
-      dialog.showModal();
-      dialog.scrollTop = 0;
-      document.documentElement.classList.add('preview-open');
-      requestAnimationFrame(() => { pageTrack.scrollTo({left: 0, behavior: 'auto'}); updatePosition(0); });
-    });
-  }
-  dialog.querySelector('.viewer-close').addEventListener('click', () => dialog.close());
-  dialog.addEventListener('close', () => {
-    document.documentElement.classList.remove('preview-open');
-    if (trigger) trigger.focus();
-  });
-  dialog.addEventListener('click', event => {
-    if (event.target !== dialog) return;
-    const rect = dialog.getBoundingClientRect();
-    if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) dialog.close();
-  });
-  pageTrack.addEventListener('keydown', event => {
-    if (pages.length < 2) return;
-    if (event.key === 'ArrowRight') { event.preventDefault(); moveTo(current + 1); }
-    if (event.key === 'ArrowLeft') { event.preventDefault(); moveTo(current - 1); }
-    if (event.key === 'Home') { event.preventDefault(); moveTo(0); }
-    if (event.key === 'End') { event.preventDefault(); moveTo(pages.length - 1); }
-  });
-  previous.addEventListener('click', () => moveTo(current - 1));
-  next.addEventListener('click', () => moveTo(current + 1));
-  pageTrack.addEventListener('scroll', () => {
-    if (scrollFrame) return;
-    scrollFrame = requestAnimationFrame(() => {
-      if (pages.length && pageTrack.clientWidth) updatePosition(Math.round(pageTrack.scrollLeft / pageTrack.clientWidth));
-      scrollFrame = 0;
-    });
-  }, { passive: true });
-  window.addEventListener('resize', () => {
-    if (dialog.open) pageTrack.scrollTo({left: current * pageTrack.clientWidth, behavior: 'auto'});
-  });
-}
+const previewPages = {"umbrella":[{"src":"assets/previews/umbrella-01.webp","label":"Cover · page 1","width":1400,"height":1980},{"src":"assets/previews/umbrella-02.webp","label":"Story page · page 2","width":1400,"height":1980},{"src":"assets/previews/umbrella-06.webp","label":"Tracing activity · page 6","width":1400,"height":1980}],"park":[{"src":"assets/previews/park-01.webp","label":"Cover · page 1","width":1400,"height":1982},{"src":"assets/previews/park-02.webp","label":"Story page · page 2","width":1400,"height":1982},{"src":"assets/previews/park-04.webp","label":"Tracing activity · page 4","width":1400,"height":1982}],"amma":[{"src":"assets/previews/amma-01.webp","label":"Cover · page 1","width":1400,"height":1980},{"src":"assets/previews/amma-03.webp","label":"Story page · page 3","width":1400,"height":1980},{"src":"assets/previews/amma-06.webp","label":"Tracing activity · page 6","width":1400,"height":1982}],"idli":[{"src":"assets/previews/idli-01.webp","label":"Cover · page 1","width":1400,"height":1980},{"src":"assets/previews/idli-03.webp","label":"Story page · page 3","width":1400,"height":1980},{"src":"assets/previews/idli-04.webp","label":"Tracing activity · page 4","width":1400,"height":1980}],"ajja":[{"src":"assets/previews/ajja-01.webp","label":"Cover · page 1","width":1400,"height":1980},{"src":"assets/previews/ajja-02.webp","label":"Story page · page 2","width":1400,"height":1980},{"src":"assets/previews/ajja-04.webp","label":"Tracing activity · page 4","width":1400,"height":1980}]};
+(() => {
+ const area=document.querySelector('.inline-preview'),track=document.querySelector('.sample-track'),chooser=document.querySelector('.preview-books');
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+ const prev=document.querySelector('#sample-prev'),next=document.querySelector('#sample-next'),play=document.querySelector('#sample-play');
+ let current=0,playing=!reduced.matches,visible=false,hovered=false;
+ function frames(){return [...track.children];}
+ function update(i){
+  current=Math.max(0,Math.min(2,i));
+  document.querySelector('#sample-position').textContent=(current+1)+' of 3';
+  prev.disabled=current===0;next.disabled=current===2;
+ }
+ function move(i,auto=false){
+  const page=frames()[i];if(!page)return;
+  if(!auto)pause();
+  track.scrollTo({left:page.offsetLeft-track.firstElementChild.offsetLeft,behavior:reduced.matches?'auto':'smooth'});update(i);
+ }
+ function pause(){document.querySelector('#sample-position').setAttribute('aria-live','polite');playing=false;play.textContent='Play page slideshow';play.setAttribute('aria-pressed','false');}
+ play.addEventListener('click',()=>{playing=!playing;document.querySelector('#sample-position').setAttribute('aria-live',playing?'off':'polite');play.textContent=playing?'Pause page slideshow':'Play page slideshow';play.setAttribute('aria-pressed',String(playing));});
+ chooser.hidden=false;document.querySelector('.sample-controls').hidden=false;
+ if(reduced.matches)pause();
+ chooser.addEventListener('click',e=>{
+  const button=e.target.closest('[data-book]');if(!button)return;
+  pause();const key=button.dataset.book,card=document.querySelector('[data-product="'+key+'"]'),title=card.querySelector('h3').textContent;
+  for(const b of chooser.querySelectorAll('button'))b.setAttribute('aria-pressed',String(b===button));
+  document.querySelector('#sample-title').textContent=title;
+  document.querySelector('#sample-format').textContent=card.querySelector('.card-bottom>span').textContent;
+  document.querySelector('#sample-buy').href=card.querySelector('.card-buy').href;
+  document.querySelector('#sample-buy').setAttribute('aria-label','Buy '+title+' for 49 rupees');
+  track.replaceChildren(...previewPages[key].map(p=>{
+   const fig=document.createElement('figure');fig.className='sample-page';
+   const link=document.createElement('a');link.href=p.src;link.target='_blank';link.rel='noopener';link.setAttribute('aria-label','Open '+p.label+' at full size');
+   const img=document.createElement('img');img.src=p.src;img.width=p.width;img.height=p.height;img.alt=title+' — '+p.label;img.loading='lazy';
+   const cap=document.createElement('figcaption');cap.textContent=p.label;link.append(img);fig.append(link,cap);return fig;
+  }));
+  track.scrollTo({left:0,behavior:'auto'});update(0);
+  if(!reduced.matches&&track.animate)track.animate([{opacity:.4,transform:'translateY(8px)'},{opacity:1,transform:'none'}],{duration:400,easing:'ease-out'});
+ });
+ prev.addEventListener('click',()=>move(current-1));next.addEventListener('click',()=>move(current+1));
+ track.addEventListener('pointerdown',pause,{passive:true});
+ track.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();move(Math.min(2,current+1));}if(e.key==='ArrowLeft'){e.preventDefault();move(Math.max(0,current-1));}});
+ track.addEventListener('scroll',()=>{
+  const first=track.firstElementChild;const index=frames().reduce((best,p,i)=>Math.abs(p.offsetLeft-first.offsetLeft-track.scrollLeft)<Math.abs(frames()[best].offsetLeft-first.offsetLeft-track.scrollLeft)?i:best,0);update(index);
+ },{passive:true});
+ area.addEventListener('mouseenter',()=>hovered=true);area.addEventListener('mouseleave',()=>hovered=false);
+ if('IntersectionObserver' in window)new IntersectionObserver(e=>visible=e[0].isIntersecting,{threshold:.25}).observe(area);
+ setInterval(()=>{if(playing&&visible&&!hovered&&!document.hidden&&!reduced.matches&&!area.contains(document.activeElement))move((current+1)%3,true);},6500);
+ reduced.addEventListener('change',()=>{if(reduced.matches)pause();});
+ document.querySelector('#sample-position').setAttribute('aria-live',playing?'off':'polite');update(0);
+})();
 const filterBar = document.querySelector('.story-filters');
 if (filterBar) {
   const cards = [...document.querySelectorAll('.card')];
