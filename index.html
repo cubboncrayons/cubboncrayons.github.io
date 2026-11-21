@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="referrer" content="no-referrer">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'self'; script-src 'self'; media-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'self'; font-src 'self'; script-src 'self'; media-src 'self'; base-uri 'none'; form-action 'none'">
   <meta name="theme-color" content="#fffaf0">
   <meta name="description" content="Kannada–English printable stories, tracing activities and gentle parent prompts. Explore everyday kindness with Cubbon Crayons. A4 PDF stories at ₹49 each.">
   <meta property="og:title" content="Cubbon Crayons · Little stories. Everyday kindness.">
@@ -16,11 +16,13 @@
   <title>Cubbon Crayons · Kannada–English Stories &amp; Activities</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='13' fill='%23f8ce62'/%3E%3Ctext x='20' y='29' text-anchor='middle' font-size='27' fill='%23254b3e' font-family='Georgia' font-weight='bold'%3Ec%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="styles.css?v=20261121-larger-covers">
+  <link rel="stylesheet" href="parent-corner.css?v=20261121-pilot">
   <script src="book-viewer.js?v=20261121-reading" defer></script>
   <script src="ritual.js?v=20261121-no-device-voice" defer></script>
   <script src="reading-room.js?v=20261121" defer></script>
   <script src="motion.js?v=20261121-polished-motion" defer></script>
   <script src="assets/audio/home-welcome.js?v=20261121-sound" defer></script>
+  <script src="parent-corner.js" defer></script>
 </head>
 <body class="home">
   <audio id="site-welcome" preload="none" playsinline aria-label="Cubbon Crayons welcome in Kannada, then English"></audio>
@@ -28,7 +30,7 @@
   <a class="skip-link" href="#main">Skip to stories and activities</a>
   <header class="site-header wrap">
     <a class="brand" href="#top"><span class="mark" aria-hidden="true">c<span>.</span></span> Cubbon Crayons</a>
-    <nav aria-label="Main navigation"><a href="#stories">Stories</a><a href="#previews">Preview</a><a href="#our-story">Our story</a></nav>
+    <nav aria-label="Main navigation"><a href="#stories">Stories</a><a href="/parent-corner.html" data-parent-corner>Parent Corner</a><a href="#our-story">Our story</a></nav>
   </header>
   <main id="main" class="wrap">
     <section class="hero" id="top" aria-labelledby="headline">
@@ -210,6 +212,8 @@
       </div>
     </section>
 
+    <section class="parent-corner-teaser" id="parent-corner" aria-labelledby="parent-corner-title"><div><p class="eyebrow">REAL PARENTING MOMENTS</p><h2 id="parent-corner-title">A little reassurance.<br>A practical next step.</h2><p>Comforting, source-informed reading for the everyday moments that leave you wondering what to say. In English and Kannada.</p><a class="text-link" href="/parent-corner.html" data-parent-corner>Explore Parent Corner</a></div><div><p class="eyebrow">OUR FIRST QUESTION</p><h3>My child won’t share a favourite toy. Am I getting this wrong?</h3><p>A calm look at treasured toys, visiting family and helping children take turns.</p><a class="text-link" href="/parent-corner/sharing-a-favourite-toy.html">Read the first article</a></div></section>
+
     <section class="founder-note" id="our-story" aria-labelledby="founder-title">
       <div><p class="eyebrow">A NOTE FROM NEERAJ</p><h2 id="founder-title">Making room for little conversations.</h2></div>
       <div><p>As a parent, I wanted a simple way to show my child what kindness looks like in everyday life.</p><p>Many of us learned about right and wrong through Ajja and Ajji’s stories. Let’s make time for them again.</p><p>That is the thought behind Cubbon Crayons: familiar Kannada–English stories and activities that give families something to read, talk about and try together.</p><a class="text-link" href="https://www.instagram.com/cubboncrayons/" rel="noreferrer">Follow @cubboncrayons on Instagram</a></div>
@@ -222,3 +226,4 @@
 <dialog class="reading-room" aria-labelledby="reading-title"><div class="reading-header"><h2 id="reading-title">Story preview</h2><button type="button" data-read-close aria-label="Close story preview">Close ×</button></div><p id="reading-caption"></p><div class="reading-tools" role="group" aria-label="Reading controls"><button type="button" data-read-prev aria-label="Previous sample page">← Previous</button><button type="button" data-read-zoom aria-pressed="false">Zoom in</button><button type="button" data-read-next aria-label="Next sample page">Next →</button></div><div class="reading-pane" tabindex="0" aria-label="Original page; scroll to read when zoomed"><img id="reading-page" alt=""></div><p class="reading-hint">Original PDF page · Zoom in, then scroll to read · Escape closes</p></dialog>
 </body>
 </html>
+
