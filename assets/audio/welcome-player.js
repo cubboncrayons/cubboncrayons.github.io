@@ -15,7 +15,7 @@
   const key=button.dataset.language,id=++request;status.textContent='';
   if(key===current&&!audio.paused){audio.pause();sync();return;}
   audio.pause();current=key;
-  audio.src='assets/audio/welcome-'+key+'.mp3';audio.currentTime=0;
+  audio.src='assets/audio/welcome-'+key+'-v2.mp3';audio.currentTime=0;
   try{await audio.play();}
   catch(error){if(id===request&&error.name!=='AbortError')status.textContent='Audio could not play. Please try again.';}
   if(id===request)sync();
