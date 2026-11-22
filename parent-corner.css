@@ -174,3 +174,7 @@
 .article-hero-picture figcaption{padding:12px 18px;font-size:.875rem;line-height:1.6;color:#526450;background:#fffdf7}
 .editorial:lang(kn) .article-hero-picture figcaption{font-family:CCKannadaReading,CCKannada,system-ui,sans-serif;line-height:1.9}
 @media(max-width:780px){.journey-card-picture{aspect-ratio:1.5}.article-hero-picture{margin:0 0 26px;border-radius:19px}.article-hero-picture img{height:auto;aspect-ratio:1.45;object-fit:cover;object-position:center 42%}}
+
+/* Keep native regenerated illustrations at 1:1 scale or smaller. */
+.article-hero-picture{max-width:400px}
+.article-hero-picture img{max-width:100%;height:auto;aspect-ratio:400 / 499;object-fit:cover;object-position:center}
