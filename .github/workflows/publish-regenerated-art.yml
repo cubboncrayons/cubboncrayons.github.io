@@ -1,0 +1,35 @@
+name: Publish regenerated article art
+on:
+  push:
+    paths:
+      - '.github/workflows/publish-regenerated-art.yml'
+permissions:
+  contents: write
+jobs:
+  install-images:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download new image renders
+        shell: bash
+        run: |
+          mkdir -p assets/parent-corner
+          curl --fail --location --retry 2 --max-time 30 'https://media.canva.com/v2/document-image/hash:-365583497/height:499/id:DAHbpEHJYR0/type:B/width:400?brand=BAEom6_qiRY&csig=AAAAAAAAAAAAAAAAAAAAAABn8UDsTwwGHeUWFiCQCdTTkT3oTe21O-fPOrwUtSH3&exp=1795353499&fallback=https%3A%2F%2Fs3.amazonaws.com%2Fdocument-export-us1.canva.com%2FHJYR0%2FDAHbpEHJYR0%2F1%2Fthumbnail%2F0001.png%3FX-Amz-Algorithm%3DAWS4-HMAC-SHA256%26X-Amz-Credential%3DAKIAQYCGKMUH545XFSWX%252F20261122%252Fus-east-1%252Fs3%252Faws4_request%26X-Amz-Date%3D20261122T065013Z%26X-Amz-Expires%3D23951%26X-Amz-Signature%3D940e3e5faacde4b307a2c21ab9489c1c74a5c883182f198289220263612438f5%26X-Amz-SignedHeaders%3Dhost%26response-expires%3DSun%252C%252022%2520Nov%25202026%252013%253A29%253A24%2520GMT&osig=AAAAAAAAAAAAAAAAAAAAAG5mwoGjIenMInRRlyPJ2I5bVyl0Bp2vKnWuWZSChbHF&page=1&signed=brand%2Cfallback%2Cpage%2Cversion&signer=document-rpc&version=1' -o assets/parent-corner/appi-ajja-regenerated.png
+          curl --fail --location --retry 2 --max-time 30 'https://media.canva.com/v2/document-image/hash:-1915931191/height:499/id:DAHbpO-Zq0U/type:B/width:400?brand=BAEom6_qiRY&csig=AAAAAAAAAAAAAAAAAAAAAI8lrCwZVjSQWdUgu3u-BApQ1lZyR9njTXFBEsnrUg1C&exp=1795352941&fallback=https%3A%2F%2Fs3.amazonaws.com%2Fdocument-export-us1.canva.com%2F-Zq0U%2FDAHbpO-Zq0U%2F1%2Fthumbnail%2F0001.png%3FX-Amz-Algorithm%3DAWS4-HMAC-SHA256%26X-Amz-Credential%3DAKIAQYCGKMUH545XFSWX%252F20261121%252Fus-east-1%252Fs3%252Faws4_request%26X-Amz-Date%3D20261121T185204Z%26X-Amz-Expires%3D67399%26X-Amz-Signature%3Dfc34faefa32f0857f452c17188e3fa6ba279c8ae3a868fda4c2cc846a9f569bc%26X-Amz-SignedHeaders%3Dhost%26response-expires%3DSun%252C%252022%2520Nov%25202026%252013%253A35%253A23%2520GMT&osig=AAAAAAAAAAAAAAAAAAAAAOUGGzRJZjUO2rww8AytqDWGdpXtHAPMqwetPrTe0YIG&page=1&signed=brand%2Cfallback%2Cpage%2Cversion&signer=document-rpc&version=1' -o assets/parent-corner/appi-rocket-regenerated.png
+          python - <<'PY'
+          import struct
+          for p in ('assets/parent-corner/appi-ajja-regenerated.png','assets/parent-corner/appi-rocket-regenerated.png'):
+              with open(p,'rb') as f: b=f.read()
+              assert b[:8]==bytes.fromhex('89504e470d0a1a0a')
+              w,h=struct.unpack('>II',b[16:24])
+              print(p,w,h,len(b))
+              assert w>=400 and h>=490
+          PY
+      - name: Commit regenerated illustrations
+        run: |
+          git config user.name "Cubbon Crayons Publishing"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/parent-corner/appi-ajja-regenerated.png assets/parent-corner/appi-rocket-regenerated.png
+          git commit -m "Add regenerated illustrations for article 02 and 03"
+          git pull --rebase origin main
+          git push origin HEAD:main
