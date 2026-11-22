@@ -1,0 +1,35 @@
+name: Diagnose high resolution image CDN access
+on:
+  push:
+    paths:
+      - '.github/workflows/test-image-access.yml'
+permissions:
+  contents: write
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Try image variants
+        shell: bash
+        run: |
+          mkdir -p /tmp/ccimgs
+          : > /tmp/ccimgs/report.txt
+          curl -sSL -m 25 -w '0-thumb %{http_code} %{size_download}\n' -o /tmp/ccimgs/0-thumb.png 'https://media.canva.com/v2/image-resize/format:PNG/height:200/quality:100/uri:ifs%3A%2F%2FM%2F65ebfb2a-148a-4aeb-9c7c-bcdc8f77d085/watermark:F/width:160?csig=AAAAAAAAAAAAAAAAAAAAALQVma8oSXn2_stEyLP5OWsSHEBusZMXLVf3DAQlTqLy&exp=1795357346&osig=AAAAAAAAAAAAAAAAAAAAADx-Lj6BcPlsOC9ZFE7yv1lp0X7a3kpqBSDBiMCJBAmz&signer=media-rpc&token=AAIAAU0AJDY1ZWJmYjJhLTE0OGEtNGFlYi05YzdjLWJjZGM4Zjc3ZDA4NQAAAAABogOjCNBhzhCJYSeIxVzEUf5sDP2Nusz5KB_Iq9_WNKw51O47pA&x-canva-quality=thumbnail' >> /tmp/ccimgs/report.txt || true
+          file /tmp/ccimgs/0-thumb.png >> /tmp/ccimgs/report.txt || true
+          curl -sSL -m 25 -w '0-resize %{http_code} %{size_download}\n' -o /tmp/ccimgs/0-resize.png 'https://media.canva.com/v2/image-resize/format:PNG/height:1000/quality:100/uri:ifs%3A%2F%2FM%2F65ebfb2a-148a-4aeb-9c7c-bcdc8f77d085/watermark:F/width:800?csig=AAAAAAAAAAAAAAAAAAAAALQVma8oSXn2_stEyLP5OWsSHEBusZMXLVf3DAQlTqLy&exp=1795357346&osig=AAAAAAAAAAAAAAAAAAAAADx-Lj6BcPlsOC9ZFE7yv1lp0X7a3kpqBSDBiMCJBAmz&signer=media-rpc&token=AAIAAU0AJDY1ZWJmYjJhLTE0OGEtNGFlYi05YzdjLWJjZGM4Zjc3ZDA4NQAAAAABogOjCNBhzhCJYSeIxVzEUf5sDP2Nusz5KB_Iq9_WNKw51O47pA&x-canva-quality=original' >> /tmp/ccimgs/report.txt || true
+          file /tmp/ccimgs/0-resize.png >> /tmp/ccimgs/report.txt || true
+          curl -sSL -m 25 -w '0-no-size %{http_code} %{size_download}\n' -o /tmp/ccimgs/0-no-size.png 'https://media.canva.com/v2/image-resize/format:PNG/quality:100/uri:ifs%3A%2F%2FM%2F65ebfb2a-148a-4aeb-9c7c-bcdc8f77d085/watermark:F?csig=AAAAAAAAAAAAAAAAAAAAALQVma8oSXn2_stEyLP5OWsSHEBusZMXLVf3DAQlTqLy&exp=1795357346&osig=AAAAAAAAAAAAAAAAAAAAADx-Lj6BcPlsOC9ZFE7yv1lp0X7a3kpqBSDBiMCJBAmz&signer=media-rpc&token=AAIAAU0AJDY1ZWJmYjJhLTE0OGEtNGFlYi05YzdjLWJjZGM4Zjc3ZDA4NQAAAAABogOjCNBhzhCJYSeIxVzEUf5sDP2Nusz5KB_Iq9_WNKw51O47pA&x-canva-quality=thumbnail' >> /tmp/ccimgs/report.txt || true
+          file /tmp/ccimgs/0-no-size.png >> /tmp/ccimgs/report.txt || true
+          curl -sSL -m 25 -w '1-thumb %{http_code} %{size_download}\n' -o /tmp/ccimgs/1-thumb.png 'https://media.canva.com/v2/image-resize/format:PNG/height:200/quality:100/uri:ifs%3A%2F%2FM%2Ff230ff7e-f20a-45bf-894f-df4df9a96471/watermark:F/width:160?csig=AAAAAAAAAAAAAAAAAAAAADazLjJWnKvGl-DEfgMT-fENAGvxqmDPurmIafbd74SL&exp=1795356743&osig=AAAAAAAAAAAAAAAAAAAAAEVGcTUPiwWF0asvF6ZfBEf_ArNMgwtHoPDrBr1Qbgco&signer=media-rpc&token=AAIAAU0AJGYyMzBmZjdlLWYyMGEtNDViZi04OTRmLWRmNGRmOWE5NjQ3MQAAAAABogOZ1VgKc4-byuRONuIg5U2kt6VTNDpNZ52-1clJmcdRbe5WnA&x-canva-quality=thumbnail' >> /tmp/ccimgs/report.txt || true
+          file /tmp/ccimgs/1-thumb.png >> /tmp/ccimgs/report.txt || true
+          curl -sSL -m 25 -w '1-resize %{http_code} %{size_download}\n' -o /tmp/ccimgs/1-resize.png 'https://media.canva.com/v2/image-resize/format:PNG/height:1000/quality:100/uri:ifs%3A%2F%2FM%2Ff230ff7e-f20a-45bf-894f-df4df9a96471/watermark:F/width:800?csig=AAAAAAAAAAAAAAAAAAAAADazLjJWnKvGl-DEfgMT-fENAGvxqmDPurmIafbd74SL&exp=1795356743&osig=AAAAAAAAAAAAAAAAAAAAAEVGcTUPiwWF0asvF6ZfBEf_ArNMgwtHoPDrBr1Qbgco&signer=media-rpc&token=AAIAAU0AJGYyMzBmZjdlLWYyMGEtNDViZi04OTRmLWRmNGRmOWE5NjQ3MQAAAAABogOZ1VgKc4-byuRONuIg5U2kt6VTNDpNZ52-1clJmcdRbe5WnA&x-canva-quality=original' >> /tmp/ccimgs/report.txt || true
+          file /tmp/ccimgs/1-resize.png >> /tmp/ccimgs/report.txt || true
+          curl -sSL -m 25 -w '1-no-size %{http_code} %{size_download}\n' -o /tmp/ccimgs/1-no-size.png 'https://media.canva.com/v2/image-resize/format:PNG/quality:100/uri:ifs%3A%2F%2FM%2Ff230ff7e-f20a-45bf-894f-df4df9a96471/watermark:F?csig=AAAAAAAAAAAAAAAAAAAAADazLjJWnKvGl-DEfgMT-fENAGvxqmDPurmIafbd74SL&exp=1795356743&osig=AAAAAAAAAAAAAAAAAAAAAEVGcTUPiwWF0asvF6ZfBEf_ArNMgwtHoPDrBr1Qbgco&signer=media-rpc&token=AAIAAU0AJGYyMzBmZjdlLWYyMGEtNDViZi04OTRmLWRmNGRmOWE5NjQ3MQAAAAABogOZ1VgKc4-byuRONuIg5U2kt6VTNDpNZ52-1clJmcdRbe5WnA&x-canva-quality=thumbnail' >> /tmp/ccimgs/report.txt || true
+          file /tmp/ccimgs/1-no-size.png >> /tmp/ccimgs/report.txt || true
+          mkdir -p image-diagnostics
+          cp /tmp/ccimgs/report.txt image-diagnostics/report.txt
+          git config user.name 'Cubbon Crayons Bot'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add image-diagnostics/report.txt
+          git commit -m 'Record image CDN resolution diagnosis' && git push || true
