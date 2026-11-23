@@ -1,0 +1,33 @@
+name: Cubbon Crayons site quality
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**/*.html'
+      - '**/*.css'
+      - '**/*.js'
+      - 'assets/**'
+      - 'scripts/site_quality.py'
+      - '.github/workflows/site-quality.yml'
+  pull_request:
+    paths:
+      - '**/*.html'
+      - '**/*.css'
+      - '**/*.js'
+      - 'assets/**'
+      - 'scripts/site_quality.py'
+      - '.github/workflows/site-quality.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - name: Checkout site
+        uses: actions/checkout@v4
+      - name: Verify site files, product details and scripts
+        run: python3 scripts/site_quality.py
