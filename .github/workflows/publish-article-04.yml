@@ -1,4 +1,4 @@
-name: Publish Article 04 Canva artwork
+name: Publish selected Article 04 illustration
 on:
   push:
     paths:
@@ -11,34 +11,44 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Download validated Canva image
+      - name: Download selected Canva picture and update Article 04
         env:
-          CANVA_URL_B64: 'aHR0cHM6Ly9tZWRpYS5jYW52YS5jb20vdjIvZG9jdW1lbnQtaW1hZ2UvaGFzaDo2OTMxNTg2NjQvaGVpZ2h0OjUzMS9pZDpEQUhidFVpWHgyYy90eXBlOkIvd2lkdGg6Mzc2P2JyYW5kPUJBRW9tNl9xaVJZJmNzaWc9QUFBQUFBQUFBQUFBQUFBQUFBQUFBRTlMUVdPZHZvNnc2S3B3aUVwVXFvTm1KNU9BVTFETURzTU5rOGdNd2tudSZleHA9MTc5NTQxNzMyMSZmYWxsYmFjaz1odHRwcyUzQSUyRiUyRnMzLmFtYXpvbmF3cy5jb20lMkZkb2N1bWVudC1leHBvcnQtdXMxLmNhbnZhLmNvbSUyRmlYeDJjJTJGREFIYnRVaVh4MmMlMkYyJTJGdGh1bWJuYWlsJTJGMDAwMS5wbmclM0ZYLUFtei1BbGdvcml0aG0lM0RBV1M0LUhNQUMtU0hBMjU2JTI2WC1BbXotQ3JlZGVudGlhbCUzREFLSUFRWUNHS01VSFdCWFNYQ1MyJTI1MkYyMDI2MTEyMiUyNTJGdXMtZWFzdC0xJTI1MkZzMyUyNTJGYXdzNF9yZXF1ZXN0JTI2WC1BbXotRGF0ZSUzRDIwMjYxMTIyVDA3MjUzMFolMjZYLUFtei1FeHBpcmVzJTNEODY0MTQlMjZYLUFtei1TaWduYXR1cmUlM0RjMmQ2ODliZTQxODRmNzM4MWZjM2ZmZTBlZDg3YmIzN2JkNWNmMWYzMTE3M2RkZTg5MzZkMDMwYzkxYmNmNTdkJTI2WC1BbXotU2lnbmVkSGVhZGVycyUzRGhvc3QlMjZyZXNwb25zZS1leHBpcmVzJTNETW9uJTI1MkMlMjUyMDIzJTI1MjBOb3YlMjUyMDIwMjYlMjUyMDA3JTI1M0EyNSUyNTNBNDQlMjUyMEdNVCZvc2lnPUFBQUFBQUFBQUFBQUFBQUFBQUFBQUk0UnFDU0tzZXExUFZZUmJ3RGZ5QUFKYVJfTEc5NDZDSkxzdGVRSFhxRmYmcGFnZT0xJnNpZ25lZD1icmFuZCUyQ2ZhbGxiYWNrJTJDcGFnZSUyQ3ZlcnNpb24mc2lnbmVyPWRvY3VtZW50LXJwYyZ2ZXJzaW9uPTI='
+          IMAGE_URL_B64: 'aHR0cHM6Ly9tZWRpYS5jYW52YS5jb20vdjIvZG9jdW1lbnQtaW1hZ2UvaGFzaDotMTQ1OTkxNjkzMi9oZWlnaHQ6NTMxL2lkOkRBSGJ0WTRtcE5nL3R5cGU6Qi93aWR0aDozNzY/YnJhbmQ9QkFFb202X3FpUlkmY3NpZz1BQUFBQUFBQUFBQUFBQUFBQUFBQUFIRmswb09uTDBxUFc5V3FxT3d1a054OVZqLVZBS3pFWnNpZTJMQ21wYl9RJmV4cD0xNzk1NDE3MjkwJmZhbGxiYWNrPWh0dHBzJTNBJTJGJTJGczMuYW1hem9uYXdzLmNvbSUyRmRvY3VtZW50LWV4cG9ydC11czEuY2FudmEuY29tJTJGNG1wTmclMkZEQUhidFk0bXBOZyUyRjElMkZ0aHVtYm5haWwlMkYwMDAxLnBuZyUzRlgtQW16LUFsZ29yaXRobSUzREFXUzQtSE1BQy1TSEEyNTYlMjZYLUFtei1DcmVkZW50aWFsJTNEQUtJQVFZQ0dLTVVIV0JYU1hDUzIlMjUyRjIwMjYxMTIzJTI1MkZ1cy1lYXN0LTElMjUyRnMzJTI1MkZhd3M0X3JlcXVlc3QlMjZYLUFtei1EYXRlJTNEMjAyNjExMjNUMDMyMzM2WiUyNlgtQW16LUV4cGlyZXMlM0QxNTQ3MyUyNlgtQW16LVNpZ25hdHVyZSUzRDZmNWM0NTNhMWNlMmJjNzExODlmNzUxYTc1MzkyMTQ5NmU1MmI0NjgwMmJmMTIxOWI4MjljYjkzMjEzZjdhY2IlMjZYLUFtei1TaWduZWRIZWFkZXJzJTNEaG9zdCUyNnJlc3BvbnNlLWV4cGlyZXMlM0RNb24lMjUyQyUyNTIwMjMlMjUyME5vdiUyNTIwMjAyNiUyNTIwMDclMjUzQTQxJTI1M0EyOSUyNTIwR01UJmZhbGxiYWNrc3RhbGU9VCZvc2lnPUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFhVEp5dUJLZWlRYnotM2N3dmRrbmxnR0dQdWJKbWJBUGRIaThSeDhlX3gmcGFnZT0xJnNpZ25lZD1icmFuZCUyQ2ZhbGxiYWNrJTJDZmFsbGJhY2tzdGFsZSUyQ3BhZ2UlMkN2ZXJzaW9uJnNpZ25lcj1kb2N1bWVudC1ycGMmdmVyc2lvbj0y'
         shell: bash
         run: |
           mkdir -p assets/parent-corner
-          CANVA_URL="$(printf '%s' "$CANVA_URL_B64" | base64 --decode)"
-          curl --fail --location --retry 3 --max-time 90 "$CANVA_URL" -o assets/parent-corner/article-04-cardboard-bus.png
+          IMAGE_URL="$(printf '%s' "$IMAGE_URL_B64" | base64 --decode)"
+          curl --fail --location --retry 3 --max-time 90 "$IMAGE_URL" -o assets/parent-corner/article-04-user-selected.png
           python - <<'PY'
-          import struct
           from pathlib import Path
-          p=Path('assets/parent-corner/article-04-cardboard-bus.png')
+          import struct,re
+          p=Path('assets/parent-corner/article-04-user-selected.png')
           b=p.read_bytes()
-          assert b[:8]==bytes.fromhex('89504e470d0a1a0a'), 'Canva response not PNG'
+          assert b[:8]==bytes.fromhex('89504e470d0a1a0a'), 'not a valid PNG'
           w,h=struct.unpack('>II',b[16:24])
-          print('Downloaded Canva Article 04',w,h,len(b))
-          assert w>=370 and h>=500, 'Image below acceptable resolution'
-          for name in ('parent-corner.html','parent-corner-kannada.html','parent-corner/when-screen-goes-off.html','parent-corner/when-screen-goes-off-kn.html'):
-              f=Path(name)
-              html=f.read_text()
-              assert '/assets/parent-corner/article-04-bus.svg' in html, name
-              f.write_text(html.replace('/assets/parent-corner/article-04-bus.svg','/assets/parent-corner/article-04-cardboard-bus.png?v=20261123-canva'))
+          print('Selected Article 04 image',w,h,len(b))
+          assert w>=370 and h>=500, 'Image resolution below minimum'
+          new='/assets/parent-corner/article-04-user-selected.png?v=20261123-user-choice'
+          for name in ('parent-corner/when-screen-goes-off.html','parent-corner/when-screen-goes-off-kn.html'):
+              page=Path(name)
+              html=page.read_text()
+              html,count=re.subn(r'src="data:image/png;base64,[A-Za-z0-9+/=]+"',lambda m:'src="'+new+'"',html,count=1)
+              if count!=1:
+                  html,count=re.subn(r'src="/assets/parent-corner/article-04-cardboard-bus.png[^"]*"',lambda m:'src="'+new+'"',html,count=1)
+              assert count==1, 'Hero image missing in '+name
+              page.write_text(html)
+          for name in ('parent-corner.html','parent-corner-kannada.html'):
+              page=Path(name)
+              html=page.read_text()
+              old='/assets/parent-corner/article-04-cardboard-bus.png?v=20261123-canva'
+              assert old in html, 'Article card image missing in '+name
+              page.write_text(html.replace(old,new))
           PY
-      - name: Publish Article 04 image
+      - name: Commit final illustration
         run: |
           git config user.name "Cubbon Crayons Publishing"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/parent-corner/article-04-cardboard-bus.png parent-corner.html parent-corner-kannada.html parent-corner/when-screen-goes-off.html parent-corner/when-screen-goes-off-kn.html
-          git commit -m "Publish Article 04 image from Canva"
+          git add assets/parent-corner/article-04-user-selected.png parent-corner.html parent-corner-kannada.html parent-corner/when-screen-goes-off.html parent-corner/when-screen-goes-off-kn.html
+          git commit -m "Publish user-selected picture for Article 04"
           git pull --rebase origin main
           git push origin HEAD:main
