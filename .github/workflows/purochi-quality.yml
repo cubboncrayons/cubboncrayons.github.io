@@ -1,0 +1,73 @@
+name: Purochi interactive quality checks
+on:
+  push:
+    paths:
+      - '.github/workflows/purochi-quality.yml'
+      - 'purochi.html'
+      - 'purochi.css'
+      - 'purochi.js'
+permissions:
+  contents: read
+jobs:
+  browser-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser test dependencies
+        run: |
+          npm install --no-save --no-package-lock playwright@1.58.2
+          npx playwright install --with-deps chromium
+      - name: Test desktop and mobile Purochi interactions
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m http.server 8173 --bind 127.0.0.1 >/tmp/purochi-http.log 2>&1 &
+          echo $! >/tmp/purochi-server.pid
+          node <<'JS'
+          const {chromium,devices}=require('playwright');
+          const assert=require('node:assert/strict');
+          (async()=>{
+            const browser=await chromium.launch({headless:true,args:['--autoplay-policy=no-user-gesture-required']});
+            let total=0;
+            for(const layout of [
+              {name:'desktop',opts:{viewport:{width:1280,height:900}}},
+              {name:'mobile',opts:{...devices['iPhone 13'],defaultBrowserType:undefined,viewport:{width:390,height:844}}}
+            ]){
+              const opts={...layout.opts};delete opts.defaultBrowserType;
+              const context=await browser.newContext(opts);
+              const page=await context.newPage();
+              const errors=[];page.on('pageerror',e=>errors.push(e.message));
+              await page.goto('http://127.0.0.1:8173/purochi.html',{waitUntil:'load'});
+              await page.locator('#sync-stage').waitFor();
+              assert.equal(await page.locator('.season-card').count(),6);
+              assert.equal(await page.locator('.p-word').count(),4);
+              assert.equal(await page.locator('#sync-stage').getAttribute('data-season'),'0');
+              await page.locator('#scene-play').click();
+              await page.waitForTimeout(900);
+              const play=await page.locator('#season-audio').evaluate(a=>!a.paused);
+              assert.ok(play,'Audio did not start after click');
+              await page.locator('#season-audio').evaluate(a=>{a.currentTime=11.5;a.dispatchEvent(new Event('seeked'))});
+              await page.waitForTimeout(160);
+              assert.equal(await page.locator('#sync-stage').getAttribute('data-season'),'2');
+              assert.ok((await page.locator('#sync-karaoke').innerText()).includes('ಶ್ರಾವಣ'));
+              assert.ok(await page.locator('#sync-karaoke .p-word.is-current').count()>=1);
+              await page.locator('#season-audio').evaluate(a=>{a.currentTime=22.2;a.dispatchEvent(new Event('seeked'))});
+              await page.waitForTimeout(900);
+              assert.equal(await page.locator('#sync-stage').getAttribute('data-season'),'5');
+              const opacity=await page.locator('#sync-landscape-next').evaluate(el=>getComputedStyle(el).opacity);
+              assert.ok(Number(opacity)>=0&&Number(opacity)<=1);
+              const noOverflow=await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+3);
+              assert.ok(noOverflow,'Horizontal overflow on '+layout.name);
+              await page.locator('#scene-play').click();
+              assert.equal(await page.locator('#season-audio').evaluate(a=>a.paused),true);
+              assert.deepEqual(errors,[],'Browser runtime errors');
+              await page.screenshot({path:'/tmp/purochi-'+layout.name+'.png',fullPage:true});
+              total++;await context.close();
+            }
+            await browser.close();console.log('PASS: '+total+' layouts; audio, karaoke, scene switching, pause, no overflow, no JS errors');
+          })().catch(e=>{console.error(e);process.exit(1)});
+          JS
