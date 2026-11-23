@@ -32,29 +32,32 @@ jobs:
               const page=await browser.newPage({viewport:{width,height:850}});
               const failures=[];page.on('pageerror',e=>failures.push(e.message));
               await page.goto('http://127.0.0.1:8173/activities.html',{waitUntil:'load'});
+              assert.equal(await page.locator('.family-collection').count(),3);
+              assert.equal(await page.locator('.activity-item:not([hidden])').count(),2);
+              assert.equal(await page.locator('.upcoming-list li:not([hidden])').count(),5);
               if(width===390){
-                for(const [label,y] of [['top',0],['categories',690],['filters',1570],['activities',2360]]){
+                for(const [label,y] of [['top',0],['cards',500],['activities',1040]]){
                   await page.evaluate(y=>window.scrollTo(0,y),y);
-                  await page.waitForTimeout(150);
-                  const shot=await page.screenshot({type:'jpeg',quality:55});
+                  await page.waitForTimeout(100);
+                  const shot=await page.screenshot({type:'jpeg',quality:52});
                   console.log('CC_MOBILE_SCREENSHOT_'+label.toUpperCase()+'_START'+shot.toString('base64')+'CC_MOBILE_SCREENSHOT_'+label.toUpperCase()+'_END');
                 }
-                await page.evaluate(()=>window.scrollTo(0,0));
               }
-              assert.equal(await page.locator('.family-collection').count(),3);
-              assert.equal(await page.locator('.activity-group:not([hidden])').count(),3);
-              assert.equal(await page.locator('.activity-item:not([hidden])').count(),7);
-              await page.locator('button[data-guide="grandparents"]').click();
-              assert.equal(await page.locator('.activity-group:not([hidden])').count(),1);
-              assert.equal(await page.locator('.activity-item:not([hidden])').count(),3);
               await page.locator('button[data-age="2-3"]').click();
               assert.equal(await page.locator('.activity-item:not([hidden])').count(),1);
-              assert.ok((await page.locator('.activity-item:not([hidden])').innerText()).includes('Childhood Rhymes'));
               await page.locator('button[data-age="4-6"]').click();
-              assert.equal(await page.locator('.activity-item:not([hidden])').count(),3);
-              assert.equal(await page.locator('a[href="/purochi.html"]').count(),1);
+              assert.equal(await page.locator('.activity-item:not([hidden])').count(),2);
               await page.goto('http://127.0.0.1:8173/activities.html#grandparents',{waitUntil:'load'});
-              assert.equal(await page.locator('.activity-group:not([hidden])').count(),1);
+              assert.equal(await page.locator('.activity-item:not([hidden])').count(),1);
+              assert.equal(await page.locator('.upcoming-list li:not([hidden])').count(),2);
+              assert.equal(await page.locator('a[href="/purochi.html"]').count(),1);
+              if(width<650){
+                await page.locator('#activities-menu-toggle').click();
+                assert.equal(await page.locator('#activities-menu-toggle').getAttribute('aria-expanded'),'true');
+                assert.ok(await page.locator('#activities-site-nav').isVisible());
+                await page.keyboard.press('Escape');
+                assert.equal(await page.locator('#activities-menu-toggle').getAttribute('aria-expanded'),'false');
+              }
               await page.locator('a[href="/purochi.html"]').click();
               await page.waitForURL('**/purochi.html');
               assert.equal(await page.locator('#season-audio').count(),1);
