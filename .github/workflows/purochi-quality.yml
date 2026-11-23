@@ -41,6 +41,21 @@ jobs:
               const errors=[];page.on('pageerror',e=>errors.push(e.message));
               await page.goto('http://127.0.0.1:8173/purochi.html',{waitUntil:'load'});
               await page.locator('#sync-stage').waitFor();
+              // The default Python static server has no proper HTTP byte-range support.
+              // Use a media Blob to exercise real HTMLAudioElement seeking in Chromium.
+              await page.evaluate(async()=>{
+                const audio=document.querySelector('#season-audio');
+                const response=await fetch(audio.querySelector('source').getAttribute('src'));
+                if(!response.ok)throw new Error('MP3 request failed '+response.status);
+                const bytes=await response.arrayBuffer();
+                audio.src=URL.createObjectURL(new Blob([bytes],{type:'audio/mpeg'}));
+                audio.load();
+                await new Promise((resolve,reject)=>{
+                  if(audio.readyState>=1)return resolve();
+                  audio.addEventListener('loadedmetadata',resolve,{once:true});
+                  audio.addEventListener('error',()=>reject(new Error('Audio decode error')),{once:true});
+                });
+              });
               assert.equal(await page.locator('.season-card').count(),6);
               assert.equal(await page.locator('.p-word').count(),4);
               assert.equal(await page.locator('#sync-stage').getAttribute('data-season'),'0');
