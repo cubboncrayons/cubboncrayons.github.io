@@ -1,0 +1,43 @@
+name: Publish Article 04 Canva artwork
+on:
+  push:
+    paths:
+      - '.github/workflows/publish-article-04.yml'
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Retrieve and verify high-resolution Canva image
+        env:
+          CANVA_THUMB_URL: 'https://media.canva.com/v2/image-resize/format:PNG/height:200/quality:100/uri:ifs%3A%2F%2FM%2Fac1861d3-f81f-4869-84a7-98054260622b/watermark:F/width:160?csig=AAAAAAAAAAAAAAAAAAAAAEvemL02YiLc4ZJ_hePv1XaCdQzYLiesZ3fN08JJaB8k&exp=1795429390&osig=AAAAAAAAAAAAAAAAAAAAAFJb1LvPWIwpelB_WeIUag40fWGI5wNFKZdO7c6N0m-1&signer=media-rpc&token=AAIAAU0AJGFjMTg2MWQzLWY4MWYtNDg2OS04NGE3LTk4MDU0MjYwNjIyYgAAAAABogfuVrDSDs_pNIUMU8LWOMbJYTDaFcEECfI0AcaLrmZ-_BNiWg&x-canva-quality=thumbnail'
+        run: |
+          python - <<'PY'
+          import os, urllib.request, struct
+          from pathlib import Path
+          url=os.environ['CANVA_THUMB_URL'].replace('/height:200/','/height:1402/').replace('/width:160?','/width:1122?').replace('x-canva-quality=thumbnail','x-canva-quality=original')
+          out=Path('assets/parent-corner/article-04-cardboard-bus.png')
+          out.parent.mkdir(parents=True,exist_ok=True)
+          urllib.request.urlretrieve(url,out)
+          b=out.read_bytes()
+          assert b[:8]==bytes.fromhex('89504e470d0a1a0a'), 'Canva response was not PNG'
+          w,h=struct.unpack('>II',b[16:24])
+          print('Retrieved Canva PNG',w,h,len(b))
+          assert w>=1000 and h>=1200, 'Artwork resolution is too low; refusing blurry publication'
+          for name in ('parent-corner.html','parent-corner-kannada.html','parent-corner/when-screen-goes-off.html','parent-corner/when-screen-goes-off-kn.html'):
+              p=Path(name)
+              html=p.read_text()
+              assert '/assets/parent-corner/article-04-bus.svg' in html, f'Article image reference not found: {name}'
+              html=html.replace('/assets/parent-corner/article-04-bus.svg','/assets/parent-corner/article-04-cardboard-bus.png?v=20261123')
+              p.write_text(html)
+          PY
+      - name: Commit Article 04 illustration and page references
+        run: |
+          git config user.name "Cubbon Crayons Publishing"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/parent-corner/article-04-cardboard-bus.png parent-corner.html parent-corner-kannada.html parent-corner/when-screen-goes-off.html parent-corner/when-screen-goes-off-kn.html
+          git commit -m "Publish full-resolution Article 04 Canva illustration"
+          git pull --rebase origin main
+          git push origin HEAD:main
