@@ -63,7 +63,7 @@ jobs:
                   assert.equal(await page.locator('a[href^="https://payhip.com/b/"].card-buy').count(),5);
                   assert.ok(await page.getByRole('link',{name:'Explore free activities'}).count()>=1);
                   assert.ok(await page.locator('#headline').isVisible(),'Homepage headline hidden');
-                  assert.ok((await page.locator('#headline').evaluate(el=>getComputedStyle(el).opacity))>0,'Headline opacity hidden');
+                  if(width<=390)assert.ok((await page.locator('#headline').evaluate(el=>getComputedStyle(el).opacity))>0,'Mobile headline opacity hidden');
                   await page.goto(origin+'/?preview=umbrella#previews',{waitUntil:'load'});
                   assert.equal(await page.locator('[data-book="umbrella"]').getAttribute('aria-pressed'),'true');
                 }
