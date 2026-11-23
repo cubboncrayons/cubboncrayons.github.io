@@ -55,3 +55,6 @@
  .collection-arrow{font-size:.82rem}
 }
 @media(max-width:350px){.family-collection img{width:40%}}
+
+.swipe-hint{display:none;color:#66806b;font-size:.76rem;font-weight:700;letter-spacing:.015em;margin:4px 0 0}
+@media(max-width:650px){.swipe-hint{display:block;text-align:right;padding-right:3px}}
