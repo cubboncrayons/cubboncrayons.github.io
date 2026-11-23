@@ -26,3 +26,4 @@ function useAnchor(){if(anchors[location.hash]){guide=anchors[location.hash];app
 window.addEventListener('hashchange',useAnchor);
 useAnchor();apply();
 })();
+// Family category navigation and age filtering.
