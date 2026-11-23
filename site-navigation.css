@@ -1,0 +1,18 @@
+/* Cubbon Crayons shared navigation + focus treatment, scoped away from Activities' own menu. */
+.skip-link{position:absolute!important;left:12px!important;top:-120px!important;z-index:90!important;background:#fff!important;color:#254b3e!important;padding:11px 15px!important;border-radius:10px!important;text-decoration:none!important;box-shadow:0 8px 20px #24452c21!important}
+.skip-link:focus{top:8px!important}
+.site-header .cc-menu-toggle{display:none}
+.site-header .cc-menu-toggle:focus-visible{outline:3px solid #6d986e;outline-offset:3px}
+@media(max-width:760px){
+ body:not(.activities-page) .site-header{position:relative;z-index:40;display:flex;flex-wrap:nowrap;align-items:center;justify-content:space-between;gap:10px;padding:12px 0}
+ body:not(.activities-page) .site-header .brand{font-size:clamp(17px,4.5vw,20px);gap:7px;white-space:nowrap}
+ body:not(.activities-page) .site-header .mark{height:30px;width:30px;border-radius:9px;font-size:21px;flex:0 0 30px}
+ body:not(.activities-page) .site-header .cc-menu-toggle{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px;padding:8px 12px;border:1px solid #d7e4d8;background:#fff;border-radius:11px;color:#2c5b42;font:700 13px system-ui,sans-serif;cursor:pointer}
+ body:not(.activities-page) .site-header nav[aria-label="Main navigation"]{display:none;position:absolute;top:calc(100% + 3px);right:0;width:min(270px,calc(100vw - 36px));flex-direction:column;gap:0;padding:7px;border:1px solid #dce7dc;border-radius:15px;background:#fffdf8;box-shadow:0 14px 40px #1e3b2c32}
+ body:not(.activities-page) .site-header nav[aria-label="Main navigation"].cc-open{display:flex}
+ body:not(.activities-page) .site-header nav[aria-label="Main navigation"] a{display:block;padding:12px 14px;border-radius:9px;min-height:44px;font-size:14px;line-height:1.4;text-decoration:none}
+ body:not(.activities-page) .site-header nav[aria-label="Main navigation"] a[aria-current="page"]{background:#eaf3e9;color:#25583c}
+ body:not(.activities-page) .site-header nav[aria-label="Main navigation"] a:focus-visible{outline:2px solid #759c72}
+}
+@media(max-width:340px){body:not(.activities-page) .site-header .cc-menu-toggle{padding:8px 9px}body:not(.activities-page) .site-header .brand{font-size:16px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
