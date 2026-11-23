@@ -23,7 +23,9 @@
   <script src="motion.js?v=20261121-polished-motion" defer></script>
   <script src="assets/audio/home-welcome.js?v=20261121-sound" defer></script>
   <script src="parent-corner.js?v=20261121-warm" defer></script>
-<link rel="stylesheet" href="site-navigation.css?v=20261123-premium"><script src="site-navigation.js?v=20261123-dedup2" defer></script></head>
+<link rel="stylesheet" href="site-navigation.css?v=20261123-premium"><script src="site-navigation.js?v=20261123-dedup2" defer></script><style>
+.cc-choose,.cc-collection-offer{margin:clamp(42px,6vw,84px) auto;scroll-margin-top:90px}.cc-choose-intro{max-width:680px;line-height:1.7;color:#5a695d}.cc-choose-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:13px;margin-top:25px}.cc-choose-tile{display:flex;flex-direction:column;gap:10px;border:1px solid #e7dfd3;background:#fffdf8;padding:20px 15px;border-radius:20px;color:#24493e;text-decoration:none;min-height:194px;box-shadow:0 7px 24px #2e41350a;transition:transform .18s,box-shadow .18s}.cc-choose-tile:hover,.cc-choose-tile:focus-visible{transform:translateY(-3px);box-shadow:0 12px 27px #2e41351e}.cc-choose-tile>span{font-size:30px}.cc-choose-tile strong{font-size:16px;line-height:1.35}.cc-choose-tile small{font-size:12px;line-height:1.4;color:#69776c}.cc-choose-tile b{margin-top:auto;font-size:12px;text-decoration:underline;text-underline-offset:3px}.cc-collection-offer{display:grid;grid-template-columns:1fr .9fr;align-items:center;gap:28px;padding:clamp(20px,4vw,42px);border-radius:26px;background:#f5f2e8;border:1px solid #e3ded1}.cc-bundle-copy h2{font:700 clamp(26px,3vw,37px)/1.2 Georgia,serif;margin:10px 0}.cc-bundle-copy p{line-height:1.7;color:#4d6054}.cc-bundle-note{font-size:14px}.cc-bundle-covers{display:flex;align-items:center;justify-content:center;gap:6px;overflow:hidden}.cc-bundle-covers img{width:18.2%;height:auto;object-fit:contain;box-shadow:0 5px 12px #2222;border-radius:5px}.cc-bundle-covers img:nth-child(even){transform:translateY(12px)}@media(max-width:900px){.cc-choose-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.cc-collection-offer{grid-template-columns:1fr}}@media(max-width:540px){.cc-choose-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cc-choose-tile{min-height:160px;padding:14px 12px}.cc-bundle-covers{margin:8px 0 0}.cc-collection-offer{padding:23px}}@media(prefers-reduced-motion:reduce){.cc-choose-tile{transition:none}}
+</style></head>
 <body class="home">
   <audio id="site-welcome" preload="none" playsinline aria-label="Cubbon Crayons welcome in Kannada, then English"></audio>
   <p class="sr-only">A short welcome plays in Kannada, then English, once per visit session. Press Escape to stop the welcome.</p>
@@ -41,7 +43,7 @@
         <p class="intro">Read, talk and trace with Kannada–English printable stories for ages <span class="age-range">2–5</span>. Explore family activities for older children, too.</p>
         <div class="hero-actions"><a class="button" href="#stories">Browse ₹49 stories</a><a class="text-link" href="#previews">See the pages</a><a class="text-link" href="/activities.html">Explore free activities</a></div>
         <div class="hero-controls"><button class="motion-toggle" type="button" aria-pressed="false" hidden>Pause book animation</button><button id="welcome-sound" class="sound-toggle" type="button" aria-pressed="false" hidden>Sound on · mute</button></div>
-        <p class="format">₹49 per story · A4 PDF · Bilingual family letter included</p>
+        <p class="format">₹49 per story · Digital A4 PDF · Preview before you buy</p>
       </div>
       <div class="book-stage" aria-hidden="true">
         <span class="feature-halo"></span><span class="feature-spark">✦</span>
@@ -69,7 +71,18 @@
       </div><p class="sample-note">3 original pages · Swipe to explore · Tap a page to read and zoom</p></div>
     </section>
 
-    <section class="collection" id="stories" aria-labelledby="collection-title">
+    <section class="cc-choose" id="choose-by-moment" aria-labelledby="cc-choose-title">
+  <div class="section-heading"><div><p class="eyebrow">A LITTLE MOMENT, A STORY TO MATCH</p><h2 id="cc-choose-title">What is your child learning today?</h2></div></div>
+  <p class="cc-choose-intro">Start with a moment your child knows. See three original pages before deciding whether to buy.</p>
+  <div class="cc-choose-grid">
+    <a href="#story-park" class="cc-choose-tile"><span aria-hidden="true">🛝</span><strong>Waiting for a turn</strong><small>Appi’s Day at the Park · ₹49</small><b>Explore the story →</b></a>
+    <a href="#story-idli" class="cc-choose-tile"><span aria-hidden="true">🍚</span><strong>Sharing something special</strong><small>An Idli for Meera · ₹49</small><b>Explore the story →</b></a>
+    <a href="#story-ajja" class="cc-choose-tile"><span aria-hidden="true">🛺</span><strong>Showing care to Ajja</strong><small>An Auto Ride for Ajja · ₹49</small><b>Explore the story →</b></a>
+    <a href="#story-umbrella" class="cc-choose-tile"><span aria-hidden="true">☂️</span><strong>Noticing someone’s feelings</strong><small>Little Blue Umbrella · ₹49</small><b>Explore the story →</b></a>
+    <a href="#story-amma" class="cc-choose-tile"><span aria-hidden="true">🏡</span><strong>Helping someone at home</strong><small>A Little Help from Appi · ₹49</small><b>Explore the story →</b></a>
+  </div>
+</section>
+<section class="collection" id="stories" aria-labelledby="collection-title">
       <div class="section-heading"><div><p class="eyebrow">THE STORY COLLECTION</p><h2 id="collection-title">Pick a story. Share a little moment.</h2></div><p class="status">₹49 each · Digital PDFs</p></div>
       <p class="collection-intro">Start with a moment you recognise: sharing a snack, waiting for a swing or caring for someone at home. Each book shows its page count, sample pages and digital price before checkout.</p>
       <div class="story-filters" aria-label="Choose a story theme" hidden>
@@ -174,7 +187,20 @@
 
 
 
-    <section class="ritual-section" id="what-you-get" aria-labelledby="inside-title">
+    <section class="cc-collection-offer" id="story-collections" aria-labelledby="cc-collection-title">
+ <div class="cc-bundle-copy"><p class="eyebrow">BUILD A LITTLE READING RITUAL</p><h2 id="cc-collection-title">Five stories. Five moments to grow together.</h2>
+ <p>The current collection has five individual Kannada–English printable stories covering kindness, sharing, helping and taking turns. Each is ₹49, for a total of ₹245 when purchased individually.</p>
+ <p class="cc-bundle-note"><strong>A discounted bundle is being considered.</strong> There is no bundle checkout or discount currently available. For now, choose individual stories and preview them before purchasing.</p>
+ <a class="button" href="#stories">See the five individual stories</a></div>
+ <div class="cc-bundle-covers" aria-label="Five available Cubbon Crayons story covers">
+ <img src="assets/previews/umbrella-cover-small.webp" alt="Little Blue Umbrella story cover" width="780" height="1103" loading="lazy">
+ <img src="assets/previews/idli-cover-small.webp" alt="An Idli for Meera story cover" width="780" height="1103" loading="lazy">
+ <img src="assets/previews/amma-cover-small.webp" alt="A Little Help from Appi story cover" width="780" height="1103" loading="lazy">
+ <img src="assets/previews/ajja-cover-small.webp" alt="An Auto Ride for Ajja story cover" width="780" height="1103" loading="lazy">
+ <img src="assets/previews/park-cover-small.webp" alt="Appi’s Day at the Park story cover" width="780" height="1103" loading="lazy">
+ </div>
+</section>
+<section class="ritual-section" id="what-you-get" aria-labelledby="inside-title">
       <div class="section-heading"><div><p class="eyebrow">A LITTLE RITUAL. A LOVELY CONNECTION.</p><h2 id="inside-title">Read a story.<br>Make it a moment.</h2></div><p class="section-intro">One book. Three ways to spend a little time together.</p></div>
       <div class="ritual-layout">
         <figure class="ritual-visual"><div class="ritual-paper"><a id="ritual-enlarge" href="assets/previews/umbrella-02.webp" target="_blank" rel="noopener" aria-label="Open the original demonstration page at full size"><img id="ritual-image" src="assets/previews/umbrella-02.webp" alt="Original story page from Appi and the Little Blue Umbrella" width="1400" height="1980" loading="lazy"></a><span class="prompt-focus" aria-hidden="true" hidden></span></div><figcaption id="ritual-caption">Read · Original story page</figcaption><p class="ritual-enlarge-note">Original PDF pages · Tap to enlarge</p></figure>
