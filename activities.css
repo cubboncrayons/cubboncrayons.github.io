@@ -44,3 +44,14 @@
 }
 @media(max-width:350px){.activities-header .brand{font-size:17px}.activities-menu-toggle{padding:7px 10px}.activity-item{grid-template-columns:28% 1fr}.activity-item-copy{padding:11px 9px}.activity-status{font-size:.59rem}.family-collection img{width:32%}.filter-buttons button{padding:7px 10px}}
 @media(prefers-reduced-motion:reduce){.family-collection{transition:none!important}}
+
+/* Mobile category shelf: swipe between full-size, legible cards instead of squeezing three into columns. */
+@media(max-width:650px){
+ .family-collection-grid{display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-padding-left:2px;overscroll-behavior-inline:contain;gap:11px;padding:2px 3px 11px 2px;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#a5c5a8 transparent}
+ .family-collection{flex:0 0 min(82%,315px);width:min(82%,315px);min-width:0;scroll-snap-align:start;min-height:142px;flex-direction:row}
+ .family-collection img{width:43%;min-height:142px;aspect-ratio:auto;object-fit:cover}
+ .family-collection-copy{padding:13px;min-width:0;gap:4px}
+ .family-collection h2{font-size:clamp(1.08rem,4.7vw,1.38rem);line-height:1.28;overflow-wrap:normal;word-break:normal}
+ .collection-arrow{font-size:.82rem}
+}
+@media(max-width:350px){.family-collection img{width:40%}}
