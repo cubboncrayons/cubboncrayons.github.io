@@ -54,6 +54,36 @@ if(player&&stage){
   syncAudioScene();
 }
 
+
+const scenePlay=$('scene-play'),sceneLabel=$('scene-play-label');
+function startScene(){
+  if(!player)return;
+  if(player.paused){
+    if(player.ended||player.currentTime>=player.duration-.15)player.currentTime=0;
+    player.play().catch(()=>{state.textContent='Press the native audio play control to start.'});
+  }else{player.pause()}
+}
+scenePlay?.addEventListener('click',startScene);
+$('hero-start')?.addEventListener('click',e=>{
+  // Gesture-triggered playback happens before scrolling, including on iOS.
+  if(!player)return;
+  e.preventDefault();
+  $('listen-title')?.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+  player.currentTime=0;
+  player.play().catch(()=>{state.textContent='Tap Play animation on the illustrated scene.'});
+});
+if(player){
+  const refreshPlay=()=>{
+    if(!scenePlay)return;
+    const running=!player.paused&&!player.ended;
+    scenePlay.setAttribute('aria-label',running?'Pause Kannada narration and animation':'Play Kannada narration and animation');
+    scenePlay.firstChild.textContent=running?'Ⅱ ':'▶ ';
+    sceneLabel.textContent=running?'Pause animation':'Play animation';
+  };
+  for(const evt of ['play','pause','ended','playing'])player.addEventListener(evt,refreshPlay);
+  refreshPlay();
+}
+
 const questions=[{month:'ಚೈತ್ರ, ವೈಶಾಖ',answer:'ವಸಂತ ಋತು',explain:'Spring · Flowers bloom'},{month:'ಜ್ಯೇಷ್ಠ, ಆಷಾಢ',answer:'ಗ್ರೀಷ್ಮ ಋತು',explain:'Summer · Sunshine and mangoes'},{month:'ಶ್ರಾವಣ, ಭಾದ್ರಪದ',answer:'ವರ್ಷ ಋತು',explain:'Monsoon · Rainy days'},{month:'ಆಶ್ವಯುಜ, ಕಾರ್ತಿಕ',answer:'ಶರದೃತು',explain:'Autumn · Clear skies'},{month:'ಮಾರ್ಗಶಿರ, ಪುಷ್ಯ',answer:'ಹೇಮಂತ ಋತು',explain:'Early winter · Misty mornings'},{month:'ಮಾಘ, ಫಾಲ್ಗುಣ',answer:'ಶಿಶಿರ ಋತು',explain:'Late winter · Cool mornings'}];
 const names=questions.map(q=>q.answer);let index=0,answered=false;
 function options(q,i){return [q.answer,names[(i+2)%6],names[(i+4)%6]].sort((a,b)=>names.indexOf(a)-names.indexOf(b))}
