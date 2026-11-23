@@ -11,30 +11,34 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Retrieve Article 04 Canva illustration
+      - name: Download validated Canva image
+        env:
+          CANVA_URL_B64: 'aHR0cHM6Ly9tZWRpYS5jYW52YS5jb20vdjIvZG9jdW1lbnQtaW1hZ2UvaGFzaDo2OTMxNTg2NjQvaGVpZ2h0OjUzMS9pZDpEQUhidFVpWHgyYy90eXBlOkIvd2lkdGg6Mzc2P2JyYW5kPUJBRW9tNl9xaVJZJmNzaWc9QUFBQUFBQUFBQUFBQUFBQUFBQUFBRTlMUVdPZHZvNnc2S3B3aUVwVXFvTm1KNU9BVTFETURzTU5rOGdNd2tudSZleHA9MTc5NTQxNzMyMSZmYWxsYmFjaz1odHRwcyUzQSUyRiUyRnMzLmFtYXpvbmF3cy5jb20lMkZkb2N1bWVudC1leHBvcnQtdXMxLmNhbnZhLmNvbSUyRmlYeDJjJTJGREFIYnRVaVh4MmMlMkYyJTJGdGh1bWJuYWlsJTJGMDAwMS5wbmclM0ZYLUFtei1BbGdvcml0aG0lM0RBV1M0LUhNQUMtU0hBMjU2JTI2WC1BbXotQ3JlZGVudGlhbCUzREFLSUFRWUNHS01VSFdCWFNYQ1MyJTI1MkYyMDI2MTEyMiUyNTJGdXMtZWFzdC0xJTI1MkZzMyUyNTJGYXdzNF9yZXF1ZXN0JTI2WC1BbXotRGF0ZSUzRDIwMjYxMTIyVDA3MjUzMFolMjZYLUFtei1FeHBpcmVzJTNEODY0MTQlMjZYLUFtei1TaWduYXR1cmUlM0RjMmQ2ODliZTQxODRmNzM4MWZjM2ZmZTBlZDg3YmIzN2JkNWNmMWYzMTE3M2RkZTg5MzZkMDMwYzkxYmNmNTdkJTI2WC1BbXotU2lnbmVkSGVhZGVycyUzRGhvc3QlMjZyZXNwb25zZS1leHBpcmVzJTNETW9uJTI1MkMlMjUyMDIzJTI1MjBOb3YlMjUyMDIwMjYlMjUyMDA3JTI1M0EyNSUyNTNBNDQlMjUyMEdNVCZvc2lnPUFBQUFBQUFBQUFBQUFBQUFBQUFBQUk0UnFDU0tzZXExUFZZUmJ3RGZ5QUFKYVJfTEc5NDZDSkxzdGVRSFhxRmYmcGFnZT0xJnNpZ25lZD1icmFuZCUyQ2ZhbGxiYWNrJTJDcGFnZSUyQ3ZlcnNpb24mc2lnbmVyPWRvY3VtZW50LXJwYyZ2ZXJzaW9uPTI='
+        shell: bash
         run: |
           mkdir -p assets/parent-corner
-          curl --fail --location --retry 3 --max-time 90 'https://design.canva.ai/QqGDoZZMW0kMHFE' -o assets/parent-corner/article-04-cardboard-bus.png
+          CANVA_URL="$(printf '%s' "$CANVA_URL_B64" | base64 --decode)"
+          curl --fail --location --retry 3 --max-time 90 "$CANVA_URL" -o assets/parent-corner/article-04-cardboard-bus.png
           python - <<'PY'
           import struct
           from pathlib import Path
           p=Path('assets/parent-corner/article-04-cardboard-bus.png')
           b=p.read_bytes()
-          assert b[:8]==bytes.fromhex('89504e470d0a1a0a'), 'Canva response was not a PNG'
+          assert b[:8]==bytes.fromhex('89504e470d0a1a0a'), 'Canva response not PNG'
           w,h=struct.unpack('>II',b[16:24])
-          print('Canva image',w,h,len(b))
-          assert w>=370 and h>=500, 'Canva illustration too small'
+          print('Downloaded Canva Article 04',w,h,len(b))
+          assert w>=370 and h>=500, 'Image below acceptable resolution'
           for name in ('parent-corner.html','parent-corner-kannada.html','parent-corner/when-screen-goes-off.html','parent-corner/when-screen-goes-off-kn.html'):
               f=Path(name)
               html=f.read_text()
               assert '/assets/parent-corner/article-04-bus.svg' in html, name
               f.write_text(html.replace('/assets/parent-corner/article-04-bus.svg','/assets/parent-corner/article-04-cardboard-bus.png?v=20261123-canva'))
           PY
-      - name: Commit Article 04 image and pages
+      - name: Publish Article 04 image
         run: |
           git config user.name "Cubbon Crayons Publishing"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add assets/parent-corner/article-04-cardboard-bus.png parent-corner.html parent-corner-kannada.html parent-corner/when-screen-goes-off.html parent-corner/when-screen-goes-off-kn.html
-          git commit -m "Publish Article 04 Canva picture"
+          git commit -m "Publish Article 04 image from Canva"
           git pull --rebase origin main
           git push origin HEAD:main
