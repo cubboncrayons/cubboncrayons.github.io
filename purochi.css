@@ -91,3 +91,27 @@
 @keyframes purochiWinter{from{transform:scale(1.04);filter:saturate(.88)}to{transform:scale(1.11);filter:saturate(.96) brightness(1.07)}}
 @media(max-width:560px){.p-sync-title{padding:19px 17px 94px}.p-karaoke{min-height:112px}.p-karaoke-months{font-size:clamp(1.65rem,7vw,2.15rem)}.p-karaoke-season{font-size:clamp(1.25rem,5.7vw,1.8rem)}.p-scene-caption{font-size:.76rem}.p-season-sun{height:80px;width:80px}}
 @media(prefers-reduced-motion:reduce){.p-word{transition:none!important;transform:none!important}.p-sync-stage.is-playing .p-sync-landscape,.p-season-sun{animation:none!important}.p-sync-stage.is-playing .p-sync-weather span{animation:none!important;opacity:0!important}}
+
+/* Quality pass 4: scene crossfades; brighter karaoke and weather differentiated for all six seasons. */
+.p-sync-landscape{opacity:1;transition:opacity .75s ease,filter .45s ease!important;will-change:opacity}
+.p-sync-landscape-next{opacity:0;z-index:0}
+.p-sync-stage.p-landscape-b #sync-landscape{opacity:0}
+.p-sync-stage.p-landscape-b #sync-landscape-next{opacity:1}
+.p-sync-stage:not(.p-landscape-b) #sync-landscape-next{opacity:0}
+.p-sync-stage[data-season="5"].is-playing .p-sync-weather span{
+  opacity:.92;width:7px;height:7px;border-radius:50%;background:#f4fcff;
+  box-shadow:0 0 10px #d4eeff;filter:none;animation:purochiFrost 4.3s linear infinite
+}
+.p-sync-stage[data-season="4"].is-playing .p-sync-weather span{
+  opacity:.36;width:110px;height:35px;border-radius:50%;background:#f2f6ff;
+  filter:blur(19px);animation:purochiMist 6s linear infinite
+}
+.p-sync-stage[data-season="1"] .p-sync-wash{background:linear-gradient(180deg,#48320d15 8%,#132b2799 73%,#102b25ef)}
+.p-sync-stage[data-season="2"] .p-sync-wash{background:linear-gradient(180deg,#142c4026 2%,#0a2b39a6 78%,#092631f1)}
+.p-sync-stage[data-season="5"] .p-sync-wash{background:linear-gradient(180deg,#20374800 3%,#182e40b2 75%,#152536fa)}
+.p-sync-stage[data-season="5"] .p-word.is-current{color:#143647;background:#e0f7ff;box-shadow:0 0 0 3px #cbebff88,0 0 25px #d2f5ff9c}
+@keyframes purochiFrost{0%{transform:translate(0,-55px);opacity:0}12%{opacity:.85}80%{opacity:.85}100%{transform:translate(24px,530px);opacity:0}}
+@media(prefers-reduced-motion:reduce){
+  .p-sync-landscape{transition:none!important;will-change:auto}
+  .p-sync-stage[data-season="5"].is-playing .p-sync-weather span{animation:none!important;opacity:0!important}
+}
