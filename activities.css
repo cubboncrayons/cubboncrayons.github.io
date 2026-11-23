@@ -58,3 +58,8 @@
 
 .swipe-hint{display:none;color:#66806b;font-size:.76rem;font-weight:700;letter-spacing:.015em;margin:4px 0 0}
 @media(max-width:650px){.swipe-hint{display:block;text-align:right;padding-right:3px}}
+
+/* Clear free-to-paid pathway without overwhelming an activity card */
+.activity-companion{display:flex;flex-direction:column;align-items:flex-start;gap:5px;border-top:1px solid #e5ebe1;padding-top:10px;margin-top:9px}
+.activity-companion>span{font-size:.72rem;color:#637466;line-height:1.5}
+.activity-buy{font-size:.75rem;color:#467755;text-decoration:underline;text-underline-offset:3px;font-weight:700}
