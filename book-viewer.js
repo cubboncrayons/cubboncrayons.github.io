@@ -42,6 +42,12 @@ const previewPages = {"umbrella":[{"src":"assets/previews/umbrella-01.webp","lab
   if(!reduced.matches&&track.animate)track.animate([{opacity:.4,transform:'translateY(8px)'},{opacity:1,transform:'none'}],{duration:400,easing:'ease-out'});
  });
  
+ // Deep-link a specific product preview from activities or parenting articles.
+ const requestedPreview=new URLSearchParams(location.search).get('preview');
+ if(requestedPreview&&Object.prototype.hasOwnProperty.call(previewPages,requestedPreview)){
+   const target=chooser.querySelector('[data-book="'+requestedPreview+'"]');
+   if(target)target.click();
+ }
  track.addEventListener('pointerdown',pause,{passive:true});
  track.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();move(Math.min(2,current+1));}if(e.key==='ArrowLeft'){e.preventDefault();move(Math.max(0,current-1));}});
  track.addEventListener('scroll',()=>{
