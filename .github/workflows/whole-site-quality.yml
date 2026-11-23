@@ -56,6 +56,10 @@ jobs:
                   const nav=page.locator('.site-header nav[aria-label="Main navigation"]');
                   assert.equal(await nav.isVisible(),true);
                   assert.ok(await nav.locator('a[href="/activities.html"]').count()>=1,'Activities nav missing '+path);
+                  assert.equal(await nav.locator('a').count(),4,path+' must show exactly four menu links');
+                  const destinations=await nav.locator('a').evaluateAll(links=>links.map(a=>a.pathname+a.hash));
+                  assert.equal(new Set(destinations).size,4,path+' duplicate menu destinations');
+                  assert.deepEqual(destinations,['/#stories','/activities.html',(path.includes('-kn.html')||path.includes('kannada.html')||path==='/purochi.html')?'/parent-corner-kannada.html':'/parent-corner.html','/#our-story'],path+' menu ordering');
                   await page.keyboard.press('Escape');assert.equal(await button.getAttribute('aria-expanded'),'false');
                 }
                 if(path==='/'){
