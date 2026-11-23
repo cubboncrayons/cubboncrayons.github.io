@@ -77,7 +77,8 @@ jobs:
                 assert.deepEqual(errors,[],path+' JS errors');
                 if(width===390&&['/','/activities.html','/parent-corner.html','/purochi.html'].includes(path)) {
                   const filename=path==='/'?'home':path.split('/')[1].replace('.html','');
-                  await page.screenshot({path:'/tmp/cc-'+filename+'.png',fullPage:false});
+                  const shot=await page.screenshot({type:'jpeg',quality:55,fullPage:false});
+                  console.log('CC_AUDIT_'+filename.toUpperCase()+'_START'+shot.toString('base64')+'CC_AUDIT_'+filename.toUpperCase()+'_END');
                 }
                 console.log('PASS',width,path);
                 await page.close();
