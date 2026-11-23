@@ -33,11 +33,13 @@ jobs:
               const failures=[];page.on('pageerror',e=>failures.push(e.message));
               await page.goto('http://127.0.0.1:8173/activities.html',{waitUntil:'load'});
               if(width===390){
-                const pageHeight=await page.evaluate(()=>document.documentElement.scrollHeight);
-                for(const [label,y,height] of [['top',0,Math.min(1800,pageHeight)],['lower',Math.min(1600,Math.max(0,pageHeight-1000)),Math.min(1300,pageHeight-Math.min(1600,Math.max(0,pageHeight-1000)))] ]){
-                  const shot=await page.screenshot({type:'jpeg',quality:58,clip:{x:0,y,width:390,height}});
+                for(const [label,y] of [['top',0],['categories',690],['filters',1570],['activities',2360]]){
+                  await page.evaluate(y=>window.scrollTo(0,y),y);
+                  await page.waitForTimeout(150);
+                  const shot=await page.screenshot({type:'jpeg',quality:55});
                   console.log('CC_MOBILE_SCREENSHOT_'+label.toUpperCase()+'_START'+shot.toString('base64')+'CC_MOBILE_SCREENSHOT_'+label.toUpperCase()+'_END');
                 }
+                await page.evaluate(()=>window.scrollTo(0,0));
               }
               assert.equal(await page.locator('.family-collection').count(),3);
               assert.equal(await page.locator('.activity-group:not([hidden])').count(),3);
