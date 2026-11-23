@@ -73,7 +73,7 @@
     const content=detail.querySelector('p');
     if(detail.open && content)play(content,[{opacity:0,transform:'translateY(-6px)'},{opacity:1,transform:'none'}],{duration:260,easing:'ease-out'});
   }));
-  document.querySelectorAll('.hero-copy .eyebrow, .hero-copy h1, .hero-copy .parent-moment, .hero-copy .intro, .hero-actions').forEach((element,i) => {
+  if(!matchMedia('(max-width: 760px)').matches) document.querySelectorAll('.hero-copy .eyebrow, .hero-copy h1, .hero-copy .parent-moment, .hero-copy .intro, .hero-actions').forEach((element,i) => {
     play(element,[{opacity:0,transform:'translateY(14px)'},{opacity:1,transform:'none'}],{duration:460,delay:i*55,easing:'cubic-bezier(.2,.7,.2,1)',fill:'backwards'});
   });
   // Small desktop-only depth response; no perpetual JavaScript animation loop.
