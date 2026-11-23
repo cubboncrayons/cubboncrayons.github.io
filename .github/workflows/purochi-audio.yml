@@ -1,0 +1,34 @@
+name: Publish Purochi Kannada audio
+on:
+  push:
+    paths:
+      - '.github/workflows/purochi-audio.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  audio:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download source recording and encode for web
+        env:
+          AUDIO_SOURCE: "https://at.adobe.com/NKIfh0kRcc9of1Nd"
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p assets/audio
+          curl --fail --location --retry 3 --max-time 120 --silent --show-error "$AUDIO_SOURCE" -o /tmp/purochi-source.wav
+          file /tmp/purochi-source.wav
+          ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1 /tmp/purochi-source.wav
+          ffmpeg -hide_banner -loglevel error -y -i /tmp/purochi-source.wav -codec:a libmp3lame -b:a 112k -ar 44100 -ac 1 assets/audio/purochi-kannada-seasons.mp3
+          test "$(wc -c < assets/audio/purochi-kannada-seasons.mp3)" -gt 50000
+      - name: Commit recording to site
+        run: |
+          set -euo pipefail
+          git config user.name "Cubbon Crayons Publishing"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/audio/purochi-kannada-seasons.mp3
+          git commit -m "Add Kannada season recitation audio" || exit 0
+          git pull --rebase origin main
+          git push origin HEAD:main
