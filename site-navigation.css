@@ -16,3 +16,18 @@
 }
 @media(max-width:340px){body:not(.activities-page) .site-header .cc-menu-toggle{padding:8px 9px}body:not(.activities-page) .site-header .brand{font-size:16px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Homepage first impression: content before artwork on phones, with no oversized blank grid row. */
+@media(max-width:760px){
+ body.home:not(.editorial) .hero{display:flex!important;flex-direction:column!important;justify-content:flex-start!important;align-items:stretch!important;min-height:0!important;gap:0!important}
+ body.home:not(.editorial) .hero .hero-copy{order:0!important;grid-row:auto!important;min-height:0!important;flex:0 0 auto!important;padding:24px 20px 12px!important}
+ body.home:not(.editorial) .hero .book-stage{order:1!important;grid-row:auto!important;height:250px!important;min-height:0!important;flex:0 0 250px!important;width:100%!important;overflow:hidden!important}
+ body.home:not(.editorial) .hero .hero-actions{display:flex;flex-wrap:wrap;gap:9px 15px}
+ body.home:not(.editorial) .hero .hero-actions .button{min-height:44px}
+ body.home:not(.editorial) .hero .eyebrow{font-size:.76rem;letter-spacing:.06em;line-height:1.45}
+ body.home:not(.editorial) .hero h1{font-size:clamp(2rem,9vw,3.1rem);line-height:1.08}
+ body.home:not(.editorial) .hero .intro{margin:12px 0 16px;font-size:.96rem;line-height:1.6}
+ body.home:not(.editorial) .hero .parent-moment{font-size:.94rem;line-height:1.55}
+ body.home:not(.editorial) .hero .format{font-size:.75rem;line-height:1.5}
+ body.home:not(.editorial) .hero .hero-controls{margin-top:4px}
+}
