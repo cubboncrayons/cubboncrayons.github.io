@@ -6,17 +6,20 @@ if(player){player.addEventListener('error',()=>{state.textContent='The Kannada a
 /* Segment boundaries follow the six lines of the supplied 26-second recording.
    Audio currentTime is authoritative: pause, scrub, slow mode and replay stay synchronized. */
 const seasonCues=[
-  {at:0,month:'ಚೈತ್ರ · ವೈಶಾಖ',season:'ವಸಂತ ಋತು',label:'01 / 06 · SPRING',alt:'Spring blossoms',scene:'🌸 Flowers bloom in spring',words:['ಚೈತ್ರ','ವೈಶಾಖ','ವಸಂತ','ಋತು'],offsets:[0.34,1.36,2.78,3.54]},
-  {at:4.35,month:'ಜ್ಯೇಷ್ಠ · ಆಷಾಢ',season:'ಗ್ರೀಷ್ಮ ಋತು',label:'02 / 06 · SUMMER',alt:'Mangoes and summer sunshine',scene:'☀️ Sunshine and mangoes in summer',words:['ಜ್ಯೇಷ್ಠ','ಆಷಾಢ','ಗ್ರೀಷ್ಮ','ಋತು'],offsets:[0.43,1.48,2.84,3.47]},
-  {at:8.72,month:'ಶ್ರಾವಣ · ಭಾದ್ರಪದ',season:'ವರ್ಷ ಋತು',label:'03 / 06 · MONSOON',alt:'Monsoon rain and green fields',scene:'🌧️ Rainfall across the green fields',words:['ಶ್ರಾವಣ','ಭಾದ್ರಪದ','ವರ್ಷ','ಋತು'],offsets:[0.42,1.52,2.86,3.48]},
-  {at:13.00,month:'ಆಶ್ವಯುಜ · ಕಾರ್ತಿಕ',season:'ಶರದೃತು',label:'04 / 06 · AUTUMN',alt:'Golden fields and clear skies',scene:'🍂 Leaves drift in the autumn breeze',words:['ಆಶ್ವಯುಜ','ಕಾರ್ತಿಕ','ಶರದೃತು'],offsets:[0.43,1.53,2.92]},
-  {at:17.36,month:'ಮಾರ್ಗಶಿರ · ಪುಷ್ಯ',season:'ಹೇಮಂತ ಋತು',label:'05 / 06 · EARLY WINTER',alt:'Misty early winter sunrise',scene:'🌫️ Soft mist over the winter fields',words:['ಮಾರ್ಗಶಿರ','ಪುಷ್ಯ','ಹೇಮಂತ','ಋತು'],offsets:[0.36,1.43,2.83,3.49]},
-  {at:21.67,month:'ಮಾಘ · ಫಾಲ್ಗುಣ',season:'ಶಿಶಿರ ಋತು',label:'06 / 06 · LATE WINTER',alt:'Cool, pale winter fields',scene:'❄️ Cool mist on late-winter mornings',words:['ಮಾಘ','ಫಾಲ್ಗುಣ','ಶಿಶಿರ','ಋತು'],offsets:[0.34,1.38,2.78,3.52]}
+  {at:0,month:'ಚೈತ್ರ · ವೈಶಾಖ',season:'ವಸಂತ ಋತು',label:'01 / 06 · SPRING',alt:'Spring blossoms',scene:'🌸 Flowers bloom in spring',words:['ಚೈತ್ರ','ವೈಶಾಖ','ವಸಂತ','ಋತು'],offsets:[0.64,1.13,2.48,2.88]},
+  {at:4.65,month:'ಜ್ಯೇಷ್ಠ · ಆಷಾಢ',season:'ಗ್ರೀಷ್ಮ ಋತು',label:'02 / 06 · SUMMER',alt:'Mangoes and summer sunshine',scene:'☀️ Sunshine and mangoes in summer',words:['ಜ್ಯೇಷ್ಠ','ಆಷಾಢ','ಗ್ರೀಷ್ಮ','ಋತು'],offsets:[0.10,0.55,1.77,2.19]},
+  {at:9.05,month:'ಶ್ರಾವಣ · ಭಾದ್ರಪದ',season:'ವರ್ಷ ಋತು',label:'03 / 06 · MONSOON',alt:'Monsoon rain and green fields',scene:'🌧️ Rainfall across the green fields',words:['ಶ್ರಾವಣ','ಭಾದ್ರಪದ','ವರ್ಷ','ಋತು'],offsets:[0.12,0.54,2.04,2.42]},
+  {at:12.75,month:'ಆಶ್ವಯುಜ · ಕಾರ್ತಿಕ',season:'ಶರದೃತು',label:'04 / 06 · AUTUMN',alt:'Golden fields and clear skies',scene:'🍂 Leaves drift in the autumn breeze',words:['ಆಶ್ವಯುಜ','ಕಾರ್ತಿಕ','ಶರದೃತು'],offsets:[0.10,0.60,1.90]},
+  {at:16.77,month:'ಮಾರ್ಗಶಿರ · ಪುಷ್ಯ',season:'ಹೇಮಂತ ಋತು',label:'05 / 06 · EARLY WINTER',alt:'Misty early winter sunrise',scene:'🌫️ Soft mist over the winter fields',words:['ಮಾರ್ಗಶಿರ','ಪುಷ್ಯ','ಹೇಮಂತ','ಋತು'],offsets:[0.10,0.55,1.94,2.35]},
+  {at:20.68,month:'ಮಾಘ · ಫಾಲ್ಗುಣ',season:'ಶಿಶಿರ ಋತು',label:'06 / 06 · LATE WINTER',alt:'Cool, pale winter fields',scene:'❄️ Tiny frost flecks on late-winter mornings',words:['ಮಾಘ','ಫಾಲ್ಗುಣ','ಶಿಶಿರ','ಋತು'],offsets:[0.12,0.63,2.34,2.76]}
 ];
-// Approximate word cues manually aligned against the supplied 26-second recording.
+// Timings recalibrated to vocal phrase activity in the supplied 26-second WAV recording; individual syllables remain approximate.
 // We follow actual currentTime (not wall clock) for pause, slow playback and seeking.
 const stage=$('sync-stage'),landscape=$('sync-landscape'),seasonCards=[...document.querySelectorAll('.season-card')];
 const karaoke=$('sync-karaoke'),scenePlay=$('scene-play'),sceneLabel=$('scene-play-label');
+const landscapeNext=$('sync-landscape-next');
+const backgroundPositions=['0% 0%','50% 0%','100% 0%','0% 100%','50% 100%','100% 100%'];
+let showingSecond=false;
 let lastSeason=-1,lastWord=-1,animFrame=null;
 function buildKaraoke(season){
   if(!karaoke)return;
@@ -37,8 +40,17 @@ function syncAudioScene(){
   for(let i=seasonCues.length-1;i>=0;i--){if(time>=seasonCues[i].at){active=i;break}}
   const season=seasonCues[active];
   if(active!==lastSeason){
+    const lastSeasonPreviously=lastSeason;
     lastSeason=active;lastWord=-1;
     stage.dataset.season=String(active);
+    if(lastSeasonPreviously>=0 && landscapeNext){
+      const incoming=showingSecond?landscape:landscapeNext;
+      incoming.style.backgroundPosition=backgroundPositions[active];
+      showingSecond=!showingSecond;
+      stage.classList.toggle('p-landscape-b',showingSecond);
+    }else if(landscape){
+      landscape.style.backgroundPosition=backgroundPositions[active];
+    }
     $('sync-months').textContent=season.month;
     $('sync-season').textContent=season.season;
     $('sync-label').textContent=season.label;
