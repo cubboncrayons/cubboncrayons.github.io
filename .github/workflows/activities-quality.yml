@@ -51,7 +51,9 @@ jobs:
               assert.equal(await page.locator('#season-audio').count(),1);
               assert.equal(await page.locator('#sync-stage').count(),1);
               assert.ok((await page.locator('.crumbs').innerText()).includes('With Grandparents'));
-              assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+3),'Horizontal overflow '+width);
+              const overflow=await page.evaluate(()=>({vw:innerWidth,sw:document.documentElement.scrollWidth,offenders:[...document.querySelectorAll('*')].filter(el=>el.getBoundingClientRect().right>innerWidth+3).slice(0,8).map(el=>({tag:el.tagName,cls:el.className?.toString().slice(0,90),right:Math.round(el.getBoundingClientRect().right)}))}));
+              console.log('Overflow diagnostic',width,JSON.stringify(overflow));
+              assert.ok(overflow.sw<=overflow.vw+3,'Horizontal overflow '+width);
               assert.deepEqual(failures,[],'JS errors');
               console.log('PASS at viewport '+width);
               await page.close();
