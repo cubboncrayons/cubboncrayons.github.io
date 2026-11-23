@@ -11,16 +11,14 @@ permissions:
 jobs:
   browser-check:
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.58.2-noble
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
       - name: Install browser test dependencies
         run: |
           npm install --no-save --no-package-lock playwright@1.58.2
-          npx playwright install --with-deps chromium
       - name: Test desktop and mobile Purochi interactions
         shell: bash
         run: |
