@@ -82,7 +82,7 @@ jobs:
                   await page.locator('button[data-age="2-3"]').click();
                   assert.equal(await page.locator('.activity-item:not([hidden])').count(),2);
                 }
-                if(path==='/ajji-madila-haadugalu.html'){assert.equal(await page.locator('#ninnata-hattu-makkalu a[href*="ichlinks.com"]').count(),1);}
+                if(path==='/ajji-madila-haadugalu.html'){assert.equal(await page.locator('#ninnata-hattu-makkalu a[href*="ichlinks.com"]').count(),0); await page.locator('#heritage-audio').waitFor({state:'visible'}); assert.equal(await page.locator('#heritage-audio').getAttribute('src'),'/assets/audio/dharwad-lullaby-cleaned.mp3'); await page.waitForFunction(()=>{const a=document.getElementById('heritage-audio');return a.readyState>=1&&Number.isFinite(a.duration)&&a.duration>0}); await page.locator('#heritage-play').click(); await page.waitForFunction(()=>!document.getElementById('heritage-audio').paused); await page.locator('#heritage-pause').click(); await page.waitForFunction(()=>document.getElementById('heritage-audio').paused); await page.locator('#heritage-replay').click(); await page.waitForFunction(()=>!document.getElementById('heritage-audio').paused);}
                 if(path==='/purochi.html'){assert.equal(await page.locator('#season-audio').count(),1);assert.equal(await page.locator('.season-card').count(),6)}
                 assert.deepEqual(errors,[],path+' JS errors');
                 if(width===390&&['/','/activities.html','/parent-corner.html','/purochi.html'].includes(path)) {
