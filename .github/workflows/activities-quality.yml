@@ -30,7 +30,8 @@ jobs:
           (async()=>{
             const browser=await chromium.launch({headless:true});
             for(const width of [1280,390,320]){
-              const page=await browser.newPage({viewport:{width,height:850}});
+              const context=await browser.newContext({viewport:{width,height:850}});
+              const page=await context.newPage();
               const failures=[];page.on('pageerror',e=>failures.push(e.message));
               await page.goto('http://127.0.0.1:8173/activities.html',{waitUntil:'load'});
               assert.equal(await page.locator('.family-collection').count(),3);
@@ -57,7 +58,7 @@ jobs:
               assert.equal(await page.locator('.activity-item:not([hidden])').count(),1);
               assert.equal(await page.locator('#ajji-madila-haadugalu:not([hidden])').count(),1);
               await page.locator('button[data-age="all"]').click();
-              const heritage=await page.context().newPage();
+              const heritage=await context.newPage();
               const heritageResponse=await heritage.goto('http://127.0.0.1:8173/ajji-madila-haadugalu.html',{waitUntil:'load'});
               assert.equal(heritageResponse.status(),200);
               assert.ok(await heritage.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+3),'Heritage page horizontal overflow');
@@ -81,7 +82,7 @@ jobs:
               assert.ok(overflow.sw<=overflow.vw+3,'Horizontal overflow '+width);
               assert.deepEqual(failures,[],'JS errors');
               console.log('PASS at viewport '+width);
-              await page.close();
+              await context.close();
             }
             await browser.close();console.log('PASS: activity categories, age filters, deep links, original Purochi audio and animation');
           })().catch(err=>{console.error(err);process.exit(1)});
