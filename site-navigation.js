@@ -4,7 +4,7 @@ if(!header||!nav||header.classList.contains('activities-header'))return;
 const isKn=document.documentElement.lang==='kn',items=[
 {href:'/#stories',text:isKn?'ಕಥೆಗಳು':'Stories'},
 {href:'/activities.html',text:isKn?'ಚಟುವಟಿಕೆಗಳು':'Activities'},
-{href:isKn?'/parent-corner-kannada.html':'/parent-corner.html',text:isKn?'ಪೋಷಕರಿಗಾಗಿ':'Parent Corner'},
+{href:isKn?'/parent-corner-kannada.html':'/parent-corner.html',text:isKn?'ಲೇಖನಗಳು':'Articles'},
 {href:'/#our-story',text:isKn?'ನಮ್ಮ ಬಗ್ಗೆ':'Our story'}
 ];
 // Replace the menu, rather than appending to pre-existing homepage or editorial links.
