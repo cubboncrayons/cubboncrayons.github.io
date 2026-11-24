@@ -77,7 +77,7 @@ jobs:
                     assert.equal(await img.count(),1);assert.ok(await img.evaluate(i=>i.naturalWidth>0),'missing artwork '+name);
                   }
                   assert.equal(await page.locator('a[href="https://payhip.com/b/I2Azi"]').count(),1);
-                  assert.equal(await page.locator('.activity-item:not([hidden])').count(),2);
+                  assert.equal(await page.locator('.activity-item:not([hidden])').count(),3);
                   await page.locator('button[data-age="2-3"]').click();
                   assert.equal(await page.locator('.activity-item:not([hidden])').count(),1);
                 }
