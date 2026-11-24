@@ -74,14 +74,15 @@ jobs:
                 }
                 if(path==='/activities.html'){
                   for(const name of ['parents','grandparents','games']){
-                    const img=page.locator('img[src="assets/activity-'+name+'-premium.jpg"]');
-                    assert.equal(await img.count(),1);assert.ok(await img.evaluate(i=>i.naturalWidth>0),'missing artwork '+name);
+                    const img=page.locator('.family-collection img[src="assets/activity-'+name+'-premium.jpg"]');
+                    assert.equal(await img.count(),1);await img.evaluate(i=>i.decode());assert.ok(await img.evaluate(i=>i.naturalWidth>0),'missing artwork '+name);
                   }
                   assert.equal(await page.locator('a[href="https://payhip.com/b/I2Azi"]').count(),1);
                   assert.equal(await page.locator('.activity-item:not([hidden])').count(),4);
                   await page.locator('button[data-age="2-3"]').click();
                   assert.equal(await page.locator('.activity-item:not([hidden])').count(),2);
                 }
+                if(path==='/ajji-madila-haadugalu.html'){assert.equal(await page.locator('#ninnata-hattu-makkalu a[href*="ichlinks.com"]').count(),1);}
                 if(path==='/purochi.html'){assert.equal(await page.locator('#season-audio').count(),1);assert.equal(await page.locator('.season-card').count(),6)}
                 assert.deepEqual(errors,[],path+' JS errors');
                 if(width===390&&['/','/activities.html','/parent-corner.html','/purochi.html'].includes(path)) {
