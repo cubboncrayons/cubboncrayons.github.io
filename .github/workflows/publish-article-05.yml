@@ -1,0 +1,35 @@
+name: Publish Article 05 image
+on:
+  push:
+    paths:
+      - '.github/workflows/publish-article-05.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Retrieve and validate approved original
+        run: |
+          mkdir -p assets/parent-corner
+          curl -fL --retry 3 --max-time 90 'https://at.adobe.com/suEyCdvj5fe5XIMP' -o /tmp/article05.png
+          python - <<'PY'
+          import struct
+          from pathlib import Path
+          b=Path('/tmp/article05.png').read_bytes()
+          assert b[:8]==bytes.fromhex('89504e470d0a1a0a'), 'Expected original PNG'
+          w,h=struct.unpack('>II',b[16:24])
+          assert w>=1000 and h>=1250, (w,h)
+          Path('assets/parent-corner/article-05.png').write_bytes(b)
+          PY
+      - name: Commit validated image
+        run: |
+          git config user.name "Cubbon Crayons Publishing"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/parent-corner/article-05.png
+          git diff --cached --quiet && exit 0
+          git commit -m "Add approved full-resolution Article 05 illustration"
+          git pull --rebase origin main
+          git push origin HEAD:main
