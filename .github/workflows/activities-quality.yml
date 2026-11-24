@@ -49,7 +49,8 @@ jobs:
               await page.locator('button[data-age="4-6"]').click();
               assert.equal(await page.locator('.activity-item:not([hidden])').count(),3);
               await page.locator('button[data-age="all"]').click();
-              await page.goto('http://127.0.0.1:8173/activities.html#grandparents',{waitUntil:'load'});
+              await page.goto('http://127.0.0.1:8173/activities.html?qa=grandparents#grandparents',{waitUntil:'load'});
+              await page.waitForFunction(()=>document.getElementById('collection-context').textContent==='With Grandparents');
               assert.equal(await page.locator('.activity-item:not([hidden])').count(),3);
               assert.equal(await page.locator('.upcoming-list li:not([hidden])').count(),1);
               await page.locator('button[data-age="2-3"]').click();
@@ -57,7 +58,9 @@ jobs:
               assert.equal(await page.locator('#ajji-madila-haadugalu:not([hidden])').count(),1);
               await page.locator('button[data-age="all"]').click();
               const heritage=await page.context().newPage();
-              await heritage.goto('http://127.0.0.1:8173/ajji-madila-haadugalu.html');
+              const heritageResponse=await heritage.goto('http://127.0.0.1:8173/ajji-madila-haadugalu.html',{waitUntil:'load'});
+              assert.equal(heritageResponse.status(),200);
+              assert.ok(await heritage.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+3),'Heritage page horizontal overflow');
               assert.equal(await heritage.locator('#ninnata-hattu-makkalu a[href*="ichlinks.com"]').count(),1);
               await heritage.close();
               assert.equal(await page.locator('a[href="/purochi.html"]').count(),1);
