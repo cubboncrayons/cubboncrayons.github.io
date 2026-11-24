@@ -7,6 +7,7 @@ on:
       - 'parent-corner/**'
       - 'purochi.html'
       - 'activities.html'
+      - 'ajji-madila-haadugalu.html'
       - 'activities.css'
       - 'site-navigation.css'
       - 'site-navigation.js'
@@ -33,7 +34,7 @@ jobs:
           node <<'JS'
           const {chromium}=require('playwright'),assert=require('node:assert/strict');
           const origin='http://127.0.0.1:8173';
-          const pages=['/','/activities.html','/purochi.html','/parent-corner.html','/parent-corner-kannada.html','/parent-corner/sharing-a-favourite-toy.html','/parent-corner/sharing-a-favourite-toy-kn.html','/parent-corner/when-screen-goes-off.html','/parent-corner/when-screen-goes-off-kn.html'];
+          const pages=['/','/activities.html','/purochi.html','/ajji-madila-haadugalu.html','/parent-corner.html','/parent-corner-kannada.html','/parent-corner/sharing-a-favourite-toy.html','/parent-corner/sharing-a-favourite-toy-kn.html','/parent-corner/when-screen-goes-off.html','/parent-corner/when-screen-goes-off-kn.html'];
           (async()=>{
             const browser=await chromium.launch({headless:true});
             for(const width of [390,320,1280]){
@@ -77,9 +78,9 @@ jobs:
                     assert.equal(await img.count(),1);assert.ok(await img.evaluate(i=>i.naturalWidth>0),'missing artwork '+name);
                   }
                   assert.equal(await page.locator('a[href="https://payhip.com/b/I2Azi"]').count(),1);
-                  assert.equal(await page.locator('.activity-item:not([hidden])').count(),3);
+                  assert.equal(await page.locator('.activity-item:not([hidden])').count(),4);
                   await page.locator('button[data-age="2-3"]').click();
-                  assert.equal(await page.locator('.activity-item:not([hidden])').count(),1);
+                  assert.equal(await page.locator('.activity-item:not([hidden])').count(),2);
                 }
                 if(path==='/purochi.html'){assert.equal(await page.locator('#season-audio').count(),1);assert.equal(await page.locator('.season-card').count(),6)}
                 assert.deepEqual(errors,[],path+' JS errors');
