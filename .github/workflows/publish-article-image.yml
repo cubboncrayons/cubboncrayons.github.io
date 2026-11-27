@@ -1,0 +1,97 @@
+name: Publish approved article illustration
+on:
+  workflow_dispatch:
+    inputs:
+      number:
+        description: Article number (two digits)
+        required: true
+      slug:
+        description: Article filename stem
+        required: true
+      source:
+        description: Fresh approved Adobe original image URL
+        required: true
+  push:
+    paths:
+      - '.github/article-image-request.json'
+permissions:
+  contents: write
+concurrency:
+  group: article-image-publishing
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install image validator
+        run: python -m pip install Pillow
+      - name: Import and validate image and bilingual references
+        env:
+          ARTICLE_NUMBER: ${{ inputs.number }}
+          ARTICLE_SLUG: ${{ inputs.slug }}
+          IMAGE_SOURCE: ${{ inputs.source }}
+        run: |
+          python - <<'PY'
+          import os,json,re,subprocess,tempfile
+          from pathlib import Path
+          from urllib.parse import urlparse
+          from PIL import Image
+          cfg={k:os.environ.get(v) for k,v in [('number','ARTICLE_NUMBER'),('slug','ARTICLE_SLUG'),('source','IMAGE_SOURCE')]}
+          if not cfg['number']:
+              cfg=json.loads(Path('.github/article-image-request.json').read_text())
+          n,s,u=(cfg[k] for k in ('number','slug','source'))
+          assert re.fullmatch(r'[0-9]{2}',n) and re.fullmatch(r'[a-z0-9-]+',s)
+          assert urlparse(u).scheme=='https' and urlparse(u).hostname=='at.adobe.com'
+          with tempfile.TemporaryDirectory() as d:
+              tmp=Path(d)/'original'
+              subprocess.run(['curl','-fsSL','--proto','=https','--proto-redir','=https','--retry','3','--max-time','120','-o',str(tmp),u],check=True)
+              with Image.open(tmp) as im:
+                  im.verify()
+              with Image.open(tmp) as im:
+                  w,h=im.size
+                  assert min(w,h)>=1000 and max(w,h)>=1500,(w,h)
+                  assert im.format=='PNG','Expected original PNG'
+              asset=Path(f'assets/parent-corner/article-{n}.png')
+              asset.parent.mkdir(parents=True,exist_ok=True)
+              asset.write_bytes(tmp.read_bytes())
+          src='/'+str(asset)
+          edits={}
+          for kn in (False,True):
+              stem=s+('-kn' if kn else '')
+              href='/parent-corner/'+stem+'.html'
+              page=Path(href[1:])
+              index=Path('parent-corner-kannada.html' if kn else 'parent-corner.html')
+              alt='ಕುಟುಂಬದೊಂದಿಗೆ ಅಪ್ಪಿ' if kn else 'Appi with his family'
+              hero=f'<figure class="article-hero-picture"><img src="{src}" alt="{alt}" width="{w}" height="{h}" loading="eager"></figure>'
+              card=f'<figure class="journey-card-picture"><img src="{src}" alt="{alt}" width="{w}" height="{h}" loading="lazy" decoding="async"></figure>'
+              html=page.read_text()
+              assert 'article-header' in html
+              if src not in html:
+                  html,count=re.subn(r'</header>\s*(?=<div class="article-layout">)',lambda m:m.group(0)+hero,html,count=1)
+                  assert count==1,page
+              edits[page]=html
+              html=index.read_text()
+              matches=list(re.finditer(r'<article\b[^>]*>[\s\S]*?</article>',html))
+              matches=[m for m in matches if href in m.group(0)]
+              assert len(matches)==1,index
+              m=matches[0]
+              old=m.group(0)
+              if src not in old:
+                  new,count=re.subn(r'<div class="journey-card-copy">',lambda m:card+m.group(0),old,count=1)
+                  assert count==1,index
+                  html=html[:m.start()]+new+html[m.end():]
+              edits[index]=html
+          assert all(src in v for v in edits.values())
+          for p,h in edits.items(): p.write_text(h)
+          print(f'Validated article {n}: {w}x{h}; four HTML references')
+          PY
+      - name: Commit image and bilingual references together
+        run: |
+          git config user.name "Cubbon Crayons Publishing"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/parent-corner parent-corner parent-corner.html parent-corner-kannada.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Publish validated article illustration and bilingual references"
+          git pull --rebase origin main
+          git push origin HEAD:main
